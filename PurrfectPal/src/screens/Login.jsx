@@ -1,17 +1,49 @@
 import { useNavigation } from '@react-navigation/native';
-import React from 'react';
-import { Image, SafeAreaView, StatusBar, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import React, { useState } from 'react';
+import { Alert, Image, SafeAreaView, StatusBar, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import GoogleBtn from '../components/GoogleBtn';
 import LoginSubmitBtn from '../components/LoginSubmitBtn';
 import LoginTextBox from '../components/LoginTextBox';
 import { SmallTextWidth, height, width } from '../global/Dimensions';
 import KeyBoardAvoiding from '../global/KeyBoardAvoiding';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import auth from '@react-native-firebase/auth';
 
 
 
 const Login = () => {
   const navigation = useNavigation();
+
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
+  const handleEmailChange = (inputText) => {
+    setEmail(inputText);
+  };
+
+  const handlePasswordChange = (inputText) => {
+    setPassword(inputText);
+  };
+
+  const loginEmailAndPassword = () => {
+    if (!email || !password) {
+      Alert.alert('Please fill in the required fields');
+      return;
+    }else {
+
+      auth().signInWithEmailAndPassword(email, password)
+          .then((res) => {
+            console.log(res)
+            Alert.alert('Logged in successfully')
+            navigation.navigate('Home')
+          })
+          .catch((error) =>{ 
+            console.log(error)
+            Alert.alert('Invalid Email or Password')
+          })
+    }
+          
+  };
 
   return (
       <KeyBoardAvoiding>
@@ -32,13 +64,13 @@ const Login = () => {
       </View>
 
       <View style={styles.downContainer}>
-          <LoginTextBox TextName = "Email Address" />
-          <LoginTextBox TextName = "Password"/>
+          <LoginTextBox TextName = "Email Address" onChangeText={handleEmailChange} value={email} />
+          <LoginTextBox TextName = "Password" onChangeText={handlePasswordChange} value={password}/>
 
           <View>
      
             <Text  style = {{  color : '#000' , fontSize : SmallTextWidth , fontFamily : 'Poppins-Medium'}}>Remember Me</Text>
-             <LoginSubmitBtn TextName = "Login" />
+             <LoginSubmitBtn TextName = "Login" onPress = {loginEmailAndPassword}/>
           </View>
 
       <View style = {{backgroundColor : '#D0DEEE',width: width - 40, height : 1, marginVertical : 20}}></View>

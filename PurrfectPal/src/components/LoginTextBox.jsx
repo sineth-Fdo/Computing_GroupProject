@@ -1,25 +1,20 @@
+// LoginTextBox.js
 import { StyleSheet, Text, View, TextInput } from 'react-native'
-import React, { useState } from 'react'
+import React from 'react'
 import { width, SmallTextWidth } from '../global/Dimensions';
-import Icon from 'react-native-vector-icons/FontAwesome';
 
 const LoginTextBox = (props) => {
-    const { TextName } = props;
-    const [text, setText] = useState('');
-
-    const handleTextChange = (inputText) => {
-        setText(inputText);
-    };
+    const { TextName, onChangeText, value, placeholder } = props;
 
     return (
         <View>
             <Text style={{ color: '#000', fontSize: SmallTextWidth, fontFamily: 'Poppins-Medium' }}>{TextName}</Text>
             <TextInput
                 style={styles.input}
-                onChangeText={handleTextChange}
-                value={text}
+                onChangeText={onChangeText}
+                value={value}
+                placeholder={placeholder}
             />
-             <Icon name="rocket" size={30} color="#900" />
         </View>
     );
 }
@@ -33,5 +28,6 @@ const styles = StyleSheet.create({
         marginBottom: 12,
         borderRadius: 10,
         backgroundColor: '#D0DEEE',
+        paddingHorizontal: 12,
     },
 });

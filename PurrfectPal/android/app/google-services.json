@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "531138760190",
+    "project_id": "purfectpal-b93c7",
+    "storage_bucket": "purfectpal-b93c7.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:531138760190:android:ac11633e100d2424e644af",
+        "android_client_info": {
+          "package_name": "com.purrfectpal"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCftN_0au-ra9cUmidxy1FTjDaArMNH9ls"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

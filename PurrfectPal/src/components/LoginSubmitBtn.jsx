@@ -3,11 +3,13 @@ import React from 'react'
 import { width, height , SmallTextWidth} from '../global/Dimensions';
 
 const LoginSubmitBtn = (props) => {
-  const {TextName} = props;
+  const {TextName, onPress} = props;
   return (
     <View>
-            <TouchableOpacity style = {styles.btnSubmit}>
-                <Text style = {{color : '#000', fontFamily : "Poppins-SemiBold" , fontSize : SmallTextWidth}}>{TextName}</Text>
+            <TouchableOpacity
+                onPress = {onPress}
+                style = {styles.btnSubmit}>
+                    <Text style = {{color : '#000', fontFamily : "Poppins-SemiBold" , fontSize : SmallTextWidth}}>{TextName}</Text>
             </TouchableOpacity>
     </View>
   )
