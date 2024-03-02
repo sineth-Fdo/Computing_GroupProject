@@ -6,7 +6,7 @@ import LoginSubmitBtn from '../components/LoginSubmitBtn';
 import LoginTextBox from '../components/LoginTextBox';
 import { SmallTextWidth, height, width } from '../global/Dimensions';
 import KeyBoardAvoiding from '../global/KeyBoardAvoiding';
-import { Colors } from 'react-native/Libraries/NewAppScreen';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 
 
@@ -32,7 +32,7 @@ const Login = () => {
       </View>
 
       <View style={styles.downContainer}>
-          <LoginTextBox TextName = "Email Address or Username" />
+          <LoginTextBox TextName = "Email Address" />
           <LoginTextBox TextName = "Password"/>
 
           <View>
@@ -53,6 +53,7 @@ const Login = () => {
             >
               <Text style = {{fontFamily : 'Poppins-Bold', color : '#000', textDecorationLine : 'underline'}}>Register</Text>
             </TouchableOpacity>
+           
           </View>
       </View>
 

@@ -19,7 +19,7 @@ const styles = StyleSheet.create({
     btnSubmit: {
         width: width - 40,
         height: 45,
-        marginVertical: 12,
+        marginVertical: 19,
         borderRadius: 10,
         backgroundColor: '#F4A34B',
         alignItems: 'center',
