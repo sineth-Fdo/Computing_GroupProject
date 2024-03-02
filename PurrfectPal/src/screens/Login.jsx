@@ -6,7 +6,6 @@ import LoginSubmitBtn from '../components/LoginSubmitBtn';
 import LoginTextBox from '../components/LoginTextBox';
 import { SmallTextWidth, height, width } from '../global/Dimensions';
 import KeyBoardAvoiding from '../global/KeyBoardAvoiding';
-import Icon from 'react-native-vector-icons/FontAwesome';
 import auth from '@react-native-firebase/auth';
 
 
@@ -25,6 +24,8 @@ const Login = () => {
     setPassword(inputText);
   };
 
+  
+
   const loginEmailAndPassword = () => {
     if (!email || !password) {
       Alert.alert('Please fill in the required fields');
@@ -37,12 +38,12 @@ const Login = () => {
             Alert.alert('Logged in successfully')
             navigation.navigate('Home')
           })
-          .catch((error) =>{ 
+          .catch((error) =>{
             console.log(error)
             Alert.alert('Invalid Email or Password')
           })
     }
-          
+
   };
 
   return (
@@ -64,11 +65,23 @@ const Login = () => {
       </View>
 
       <View style={styles.downContainer}>
-          <LoginTextBox TextName = "Email Address" onChangeText={handleEmailChange} value={email} />
-          <LoginTextBox TextName = "Password" onChangeText={handlePasswordChange} value={password}/>
+          <LoginTextBox
+              TextName = "Email Address"
+              onChangeText={handleEmailChange}
+              value={email}
+              secureTextEntry = {false}
+              />
+
+          <LoginTextBox
+              TextName = "Password"
+              onChangeText={handlePasswordChange}
+              value={password}
+              secureTextEntry = {true}
+              />
+    
 
           <View>
-     
+      
             <Text  style = {{  color : '#000' , fontSize : SmallTextWidth , fontFamily : 'Poppins-Medium'}}>Remember Me</Text>
              <LoginSubmitBtn TextName = "Login" onPress = {loginEmailAndPassword}/>
           </View>

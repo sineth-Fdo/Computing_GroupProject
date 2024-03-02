@@ -4,7 +4,7 @@ import React from 'react'
 import { width, SmallTextWidth } from '../global/Dimensions';
 
 const LoginTextBox = (props) => {
-    const { TextName, onChangeText, value, placeholder } = props;
+    const { TextName, onChangeText, value, placeholder, secureTextEntry } = props;
 
     return (
         <View>
@@ -14,7 +14,10 @@ const LoginTextBox = (props) => {
                 onChangeText={onChangeText}
                 value={value}
                 placeholder={placeholder}
+                placeholderTextColor={'#666666'}
+                secureTextEntry={secureTextEntry}
             />
+            
         </View>
     );
 }
@@ -29,5 +32,6 @@ const styles = StyleSheet.create({
         borderRadius: 10,
         backgroundColor: '#D0DEEE',
         paddingHorizontal: 12,
+        color: '#000',
     },
 });

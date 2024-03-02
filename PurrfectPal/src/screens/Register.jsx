@@ -1,4 +1,3 @@
-// Register.js
 import React, { useState } from 'react'
 import { Image, StatusBar, StyleSheet, View, Text, SafeAreaView, TouchableOpacity, Alert, } from 'react-native';
 import LoginTextBox from '../components/LoginTextBox';
@@ -32,7 +31,7 @@ const Register = () => {
       auth()
       .createUserWithEmailAndPassword(email, password).then(() => {
         Alert.alert('User account created');
-        navigation.navigate('Login');
+        navigation.navigate('UserDetailsRegister');
       })
       .catch (error => {
         Alert.alert('Invalid Email or Password');
@@ -56,8 +55,17 @@ const Register = () => {
           <Text style = {{color : 'black', fontSize : 35, fontFamily : 'Poppins-Bold'}}>Register</Text>
         </View>
         <View style={styles.downContainer}>
-          <LoginTextBox TextName="Email Address" onChangeText={handleEmailChange} value={email} />
-          <LoginTextBox TextName="Password" onChangeText={handlePasswordChange} value={password} placeholder = "must be 6 characters long or more" />
+          <LoginTextBox 
+              TextName="Email Address" 
+              onChangeText={handleEmailChange} 
+              secureTextEntry = {false} value={email} />
+
+          <LoginTextBox 
+              TextName="Password" 
+              onChangeText={handlePasswordChange} 
+              secureTextEntry = {true} value={password} 
+               placeholder = "must be 6 characters long or more" />
+
           <View>
             <LoginSubmitBtn TextName="Register" onPress={register}/>
           </View>
