@@ -35,10 +35,8 @@ const Register = () => {
       </View>
 
       <View style={styles.downContainer}>
-          <LoginTextBox TextName = "Username" />
           <LoginTextBox TextName = "Email Address"/>
           <LoginTextBox TextName = "Password"/>
-          <LoginTextBox TextName = "Confirm Password"/>
 
           <View>
             <LoginSubmitBtn TextName = "Register"/>
@@ -64,7 +62,7 @@ const Register = () => {
 
     </SafeAreaView>
 </KeyBoardAvoiding>
-   
+
   )
 }
 
@@ -87,7 +85,7 @@ const styles = StyleSheet.create({
     height: 'auto',
     alignItems: 'center',
     flex: 1,
-    paddingTop : width / 17,
+    paddingTop : width / 8,
     
   },
 
