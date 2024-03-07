@@ -1,12 +1,12 @@
-import React, { useState } from 'react'
-import { Image, StatusBar, StyleSheet, View, Text, SafeAreaView, TouchableOpacity, Alert, } from 'react-native';
-import LoginTextBox from '../components/LoginTextBox';
-import { width, height , SmallTextWidth} from '../global/Dimensions';
-import LoginSubmitBtn from '../components/LoginSubmitBtn';
-import GoogleBtn from '../components/GoogleBtn';
-import { useNavigation } from '@react-navigation/native';
-import KeyBoardAvoiding from '../global/KeyBoardAvoiding';
 import auth from '@react-native-firebase/auth';
+import { useNavigation } from '@react-navigation/native';
+import React, { useState } from 'react';
+import { Alert, Image, SafeAreaView, StatusBar, StyleSheet, Text, TouchableOpacity, View, } from 'react-native';
+import GoogleBtn from '../components/GoogleBtn';
+import LoginSubmitBtn from '../components/LoginSubmitBtn';
+import LoginTextBox from '../components/LoginTextBox';
+import { height, width } from '../global/Dimensions';
+import KeyBoardAvoiding from '../global/KeyBoardAvoiding';
 
 const Register = () => {
   const navigation = useNavigation();
@@ -31,7 +31,7 @@ const Register = () => {
       auth()
       .createUserWithEmailAndPassword(email, password).then(() => {
         Alert.alert('User account created');
-        navigation.navigate('UserDetailsRegister');
+        navigation.navigate('UserDetailsRegister',{email : email});
       })
       .catch (error => {
         Alert.alert('Invalid Email or Password');
@@ -63,8 +63,9 @@ const Register = () => {
           <LoginTextBox 
               TextName="Password" 
               onChangeText={handlePasswordChange} 
-              secureTextEntry = {true} value={password} 
-               placeholder = "must be 6 characters long or more" />
+              secureTextEntry = {true} value={password}
+              placeholder = "Must Be 6 Characters Long Or More" />
+              
 
           <View>
             <LoginSubmitBtn TextName="Register" onPress={register}/>
