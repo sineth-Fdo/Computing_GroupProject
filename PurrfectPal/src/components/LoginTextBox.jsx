@@ -1,7 +1,7 @@
 // LoginTextBox.js
-import { StyleSheet, Text, View, TextInput } from 'react-native'
-import React from 'react'
-import { width, SmallTextWidth } from '../global/Dimensions';
+import React from 'react';
+import { StyleSheet, Text, TextInput, View } from 'react-native';
+import { SmallTextWidth, width } from '../global/Dimensions';
 
 const LoginTextBox = (props) => {
     const { TextName, onChangeText, value, placeholder, secureTextEntry } = props;
@@ -16,6 +16,7 @@ const LoginTextBox = (props) => {
                 placeholder={placeholder}
                 placeholderTextColor={'#666666'}
                 secureTextEntry={secureTextEntry}
+                placeholderStyle={{ color: '#666666', fontFamily: 'Poppins-Italic'}}
             />
             
         </View>

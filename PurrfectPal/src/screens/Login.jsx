@@ -81,9 +81,7 @@ const Login = () => {
     
 
           <View>
-      
-            <Text  style = {{  color : '#000' , fontSize : SmallTextWidth , fontFamily : 'Poppins-Medium'}}>Remember Me</Text>
-             <LoginSubmitBtn TextName = "Login" onPress = {loginEmailAndPassword}/>
+            <LoginSubmitBtn TextName = "Login" onPress = {loginEmailAndPassword}/>
           </View>
 
       <View style = {{backgroundColor : '#D0DEEE',width: width - 40, height : 1, marginVertical : 20}}></View>
