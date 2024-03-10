@@ -1,5 +1,6 @@
 import React from 'react';
 import {View, StyleSheet, SafeAreaView, StatusBar, Image, Text, TouchableOpacity} from 'react-native';
+import { SmallTextWidth,bigTextWidth, height, width } from '../global/Dimensions';
 import Button from '../components/Button'
 import SkipButton from '../components/SkipButton'
 
@@ -22,7 +23,6 @@ const ScreenOne = ({navigation}) => {
                 <View style= {styles.buttonView}>
                     <Button bgcolor = '#F4A34B' buttontext = 'Next' paddingtop = {5} onPress= {() => navigation.navigate('screentwo')} />
                 </View>
-
 
             </View>
 
@@ -77,12 +77,12 @@ const styles = StyleSheet.create({
     },
     Heading: {
         color: 'black',
-        fontSize: 28,
+        fontSize:bigTextWidth / 1.1 ,
         fontFamily: 'Poppins-Medium'
     },
     cont: {
         color: 'black',
-        fontSize: 18,
+        fontSize: SmallTextWidth * 1.2,
         fontFamily: 'Poppins-Regular',
         textAlign: 'center'
     },
@@ -92,6 +92,7 @@ const styles = StyleSheet.create({
         width: '100%',
         height: 'auto',
         alignItems: 'center',
+        paddingVertical: 20,
     }
 })
 

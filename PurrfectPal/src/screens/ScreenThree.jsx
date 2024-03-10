@@ -2,6 +2,7 @@ import React from 'react';
 import {View, StyleSheet, SafeAreaView, StatusBar, Image, Text, TouchableOpacity} from 'react-native';
 import Button from '../components/Button'
 import BackButton from '../components/BackButton'
+import { SmallTextWidth,bigTextWidth, height, width } from '../global/Dimensions';
 
 const ScreenOne = ({navigation}) => {
     return (
@@ -54,8 +55,6 @@ const styles = StyleSheet.create({
 
     Details: {
         marginTop: 40,
-        // borderWidth: 2,
-        // borderColor: 'black',
         height: 400,
         width: '100%',
         color: 'black',
@@ -84,12 +83,12 @@ const styles = StyleSheet.create({
 
     Heading: {
         color: 'black',
-        fontSize: 28,
+        fontSize: bigTextWidth / 1.1,
         fontFamily: 'Poppins-Medium'
     },
     cont: {
         color: 'black',
-        fontSize: 18,
+        fontSize: SmallTextWidth * 1.3,
         fontFamily: 'Poppins-Regular',
         textAlign: 'center'
     },
@@ -101,6 +100,7 @@ const styles = StyleSheet.create({
         flexDirection: 'column',
         alignItems: 'center',
         justifyContent: 'space-between'
+        
         
     }
 })
