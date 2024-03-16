@@ -8,7 +8,7 @@ const LoginTextBox = (props) => {
 
     return (
         <View>
-            <Text style={{ color: '#000', fontSize: SmallTextWidth, fontFamily: 'Poppins-Medium' }}>{TextName}</Text>
+            <Text style={{ color: '#000', fontSize: SmallTextWidth, fontFamily: 'Poppins-SemiBold' }}>{TextName}</Text>
             <TextInput
                 style={styles.input}
                 onChangeText={onChangeText}

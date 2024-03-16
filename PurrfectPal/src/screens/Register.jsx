@@ -55,14 +55,14 @@ const Register = () => {
           <Text style = {{color : 'black', fontSize : 35, fontFamily : 'Poppins-Bold'}}>Register</Text>
         </View>
         <View style={styles.downContainer}>
-          <LoginTextBox 
-              TextName="Email Address" 
-              onChangeText={handleEmailChange} 
+          <LoginTextBox
+              TextName="Email Address"
+              onChangeText={handleEmailChange}
               secureTextEntry = {false} value={email} />
 
-          <LoginTextBox 
-              TextName="Password" 
-              onChangeText={handlePasswordChange} 
+          <LoginTextBox
+              TextName="Password"
+              onChangeText={handlePasswordChange}
               secureTextEntry = {true} value={password}
               placeholder = "Must Be 6 Characters Long Or More" />
               
