@@ -1,14 +1,17 @@
+import { firebase } from '@react-native-firebase/firestore';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import React, { useState } from 'react';
-import { Alert, Image, SafeAreaView, StatusBar, StyleSheet, Text, View } from 'react-native';
+import { Alert, Image, SafeAreaView, StatusBar, StyleSheet, Text, View, Modal, ActivityIndicator } from 'react-native';
+import { launchImageLibrary } from 'react-native-image-picker';
+import MaterialIcons from 'react-native-vector-icons/dist/MaterialIcons';
 import GoogleBtn from '../components/GoogleBtn';
 import LoginSubmitBtn from '../components/LoginSubmitBtn';
 import LoginTextBox from '../components/LoginTextBox';
 import { bigTextWidth, height, width } from '../global/Dimensions';
 import KeyBoardAvoiding from '../global/KeyBoardAvoiding';
-import { firebase } from '@react-native-firebase/firestore';
-import MaterialIcons from 'react-native-vector-icons/dist/MaterialIcons';
-import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
+import storage from '@react-native-firebase/storage';
+import LottieView from "lottie-react-native";
+
 
 const UserDetailsRegister = () => {
 
@@ -20,6 +23,7 @@ const UserDetailsRegister = () => {
     const [name, setName] = useState('');
     const [userName, setUserName] = useState('');
     const [selectImage, setSelectImage] = useState('');
+    const [isModalVisible, setIsModalVisible] = useState(false);
 
 
 
@@ -34,9 +38,56 @@ const UserDetailsRegister = () => {
       setUserName(inputText);
     };
 
-    const skipHandler = () => {
-      navigation.navigate('Home');
-    }
+        // Modal Handlers
+        const showModal = () => {
+          setIsModalVisible(true);
+      };
+  
+      const hideModal = () => {
+          setIsModalVisible(false);
+      };
+  
+      // Skip Handler
+      const skipHandler = async () => {
+          showModal();
+          
+          
+          const uploadUri = selectImage;
+                let filename = uploadUri.substring(uploadUri.lastIndexOf('/') + 1);
+
+                try {
+                  await storage().ref('users/'+filename).putFile(uploadUri);
+                  console.log('File uploaded to storage');
+
+                }catch{(error) => {
+                  console.log(error);
+                }};
+
+
+                firebase.firestore().collection('users').add({
+                  name: "User",
+                  userName: "New_User",
+                  email: email,
+                  profilePic : filename
+              }).then(() => {
+                  setName('');
+                  setUserName('');
+                  
+                  navigation.navigate('Home', {email : email});
+              }).catch((error) => {
+                  Alert.alert('Error Adding User');
+              })
+
+          setTimeout(() => {
+              
+              hideModal();
+              navigation.navigate('Home', { email: email });
+          }, 2000);
+      };
+
+
+
+  
 
 
 
@@ -45,7 +96,6 @@ const UserDetailsRegister = () => {
     const ImagePicker = () => {
         let options = {
           storageOptions: {
-            // skipBackup: true,
             path: 'images',
           },
         };
@@ -65,26 +115,52 @@ const UserDetailsRegister = () => {
 
     // Add The new user to the database
     const AddNewUser = async () => {
-
       if (!name || !userName) {
         Alert.alert('Please fill in the required fields');
         return;
       }else {
+                showModal();
+                
+                const uploadUri = selectImage;
+                let filename = uploadUri.substring(uploadUri.lastIndexOf('/') + 1);
 
-        firebase.firestore().collection('users').add({
-              name: name,
-              userName: userName,
-              email: email
-          }).then(() => {
-              setName('');
-              setUserName('');
-              Alert.alert('User Added Successfully');
-              navigation.navigate('Home');
-          }).catch((error) => {
-              Alert.alert('Error Adding User');
-          })
-      }
-    }
+                try {
+                  await storage().ref('users/'+filename).putFile(uploadUri);
+                  console.log('File uploaded to storage');
+          
+                }catch{(error) => {
+                  console.log(error);
+                }};
+                
+
+              firebase.firestore().collection('users').add({
+                    name: name,
+                    userName: userName,
+                    email: email,
+                    profilePic : filename
+
+                }).then(async () => {
+                      
+                    setName('');
+                    setUserName('');
+                    
+                    navigation.navigate('Home', {email : email});
+
+                }).catch((error) => {
+                    Alert.alert('Error Adding User');
+                })
+
+                setTimeout(() => {
+              
+                  hideModal();
+                  navigation.navigate('Home', { email: email });
+              }, 2000);
+            }
+    };
+
+
+
+    
 
     
 
@@ -145,6 +221,28 @@ const UserDetailsRegister = () => {
           </View>
 
           <GoogleBtn btnText = "Skip" onPress={skipHandler}/>
+            
+          {isModalVisible &&
+                        <Modal
+                            animationType="fade"
+                            transparent={true}
+                            visible={isModalVisible}
+                            onRequestClose={() => hideModal()}
+                        >
+                            <View style={styles.modalContainer}>
+                                  <LottieView
+                                    source={require("../../assets/Images/Animated/catLoading.json")}
+                                    style={{ width: 100, height: 100, }}
+                                    autoPlay
+                                    loop
+                                  />
+                                  <Text>Creating Profile</Text>
+                            </View>
+                        </Modal>
+                    }
+
+              
+
 
         </View>
       </SafeAreaView>
@@ -173,4 +271,12 @@ const styles = StyleSheet.create({
         flex: 1,
         paddingTop : width / 8,
       },
+      modalContainer: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: 'rgba(0,0,0,0.5)',
+    },
+
+  
 })
