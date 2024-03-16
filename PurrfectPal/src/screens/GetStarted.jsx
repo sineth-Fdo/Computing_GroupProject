@@ -2,6 +2,7 @@ import { SafeAreaView, StyleSheet, Text, View, StatusBar, Image, TouchableOpacit
 import Button from '../components/Button'
 import React from 'react'
 
+
 const GetStarted = ({navigation}) => {
   return (
     <SafeAreaView style = {styles.mainContainer}>
@@ -12,6 +13,7 @@ const GetStarted = ({navigation}) => {
             <Text style = {styles.bottomText}>
                 Complete few more steps to find the best partner{"\n"}for your life
             </Text>
+        
         </View>
     </SafeAreaView>
   )
