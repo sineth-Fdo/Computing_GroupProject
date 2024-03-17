@@ -9,7 +9,7 @@ const LoginSubmitBtn = (props) => {
             <TouchableOpacity
                 onPress = {onPress}
                 style = {styles.btnSubmit}>
-                    <Text style = {{color : '#000', fontFamily : "Poppins-SemiBold" , fontSize : SmallTextWidth}}>{TextName}</Text>
+                    <Text style = {{color : '#000', fontFamily : "Poppins-SemiBold" , fontSize : SmallTextWidth * 1.3}}>{TextName}</Text>
             </TouchableOpacity>
     </View>
   )

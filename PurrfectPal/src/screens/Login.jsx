@@ -36,7 +36,7 @@ const Login = () => {
           .then((res) => {
             console.log(res)
             Alert.alert('Logged in successfully')
-            navigation.navigate('Home')
+            navigation.navigate('Home', {email : email})
           })
           .catch((error) =>{
             console.log(error)
@@ -96,7 +96,7 @@ const Login = () => {
             >
               <Text style = {{fontFamily : 'Poppins-Bold', color : '#000', textDecorationLine : 'underline'}}>Register</Text>
             </TouchableOpacity>
-           
+          
           </View>
       </View>
 

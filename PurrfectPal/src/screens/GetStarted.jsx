@@ -2,6 +2,7 @@ import { SafeAreaView, StyleSheet, Text, View, StatusBar, Image, TouchableOpacit
 import Button from '../components/Button'
 import React from 'react'
 
+
 const GetStarted = ({navigation}) => {
   return (
     <SafeAreaView style = {styles.mainContainer}>
@@ -9,9 +10,10 @@ const GetStarted = ({navigation}) => {
         <Image source={require('../../assets/Images/GetStarted.png')}  style = {styles.ImageStyle} />
         <View style= {styles.insideData}>
             <Button bgcolor = '#FBE0C3' buttontext = 'Get Started' paddingtop = {5} onPress= {() => navigation.navigate('screenone')} />
-            <Text style = {styles.bottomText}> 
-            Complete few more steps to find the best partner{"\n"}for your life
+            <Text style = {styles.bottomText}>
+                Complete few more steps to find the best partner{"\n"}for your life
             </Text>
+        
         </View>
     </SafeAreaView>
   )

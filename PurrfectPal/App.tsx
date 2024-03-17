@@ -9,6 +9,8 @@ import ScreenOne from './src/screens/ScreenOne';
 import ScreenTwo from './src/screens/ScreenTwo';
 import ScreenThree from './src/screens/ScreenThree';
 import GetStarted from './src/screens/GetStarted';
+import Tabs from './navigation/Tabs';
+
 
 const Stack = createNativeStackNavigator();
 
@@ -53,7 +55,7 @@ const App = () => {
         />
         <Stack.Screen
           name="Home"
-          component={Home}
+          component={Tabs}
           options={{headerShown: false}}
         />
       </Stack.Navigator>
