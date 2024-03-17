@@ -7,8 +7,10 @@ import Register from './src/screens/Register';
 import UserDetailsRegister from './src/screens/UserDetailsRegister';
 import ScreenOne from './src/screens/ScreenOne';
 import ScreenTwo from './src/screens/ScreenTwo';
-import ScreenThree from './src/screens/ScreenThree'
+import ScreenThree from './src/screens/ScreenThree';
 import GetStarted from './src/screens/GetStarted';
+import Tabs from './navigation/Tabs';
+
 
 const Stack = createNativeStackNavigator();
 
@@ -16,25 +18,23 @@ const App = () => {
   return (
     <NavigationContainer>
       <Stack.Navigator>
-      <Stack.Screen
-          name='getstarted'
-          component = {GetStarted}
+        <Stack.Screen
+          name="getstarted"
+          component={GetStarted}
           options={{headerShown: false}}
-          
         />
         <Stack.Screen
-          name='screenone'
-          component = {ScreenOne}
+          name="screenone"
+          component={ScreenOne}
           options={{headerShown: false}}
-          
         />
         <Stack.Screen
-          name='screentwo'
+          name="screentwo"
           component={ScreenTwo}
           options={{headerShown: false}}
         />
         <Stack.Screen
-          name='screenthree'
+          name="screenthree"
           component={ScreenThree}
           options={{headerShown: false}}
         />
@@ -55,7 +55,7 @@ const App = () => {
         />
         <Stack.Screen
           name="Home"
-          component={Home}
+          component={Tabs}
           options={{headerShown: false}}
         />
       </Stack.Navigator>
