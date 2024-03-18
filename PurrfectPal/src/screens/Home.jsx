@@ -5,11 +5,11 @@ import { useRoute } from '@react-navigation/native';
 
 
 
-const Home = () => {
-  
+const Home = (props) => {
 
-  const route = useRoute();
-  const { email } = route.params;
+  const { email } = props.route.params;
+
+  
 
   const [user, setUser] = useState(null);
 

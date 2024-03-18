@@ -6,10 +6,16 @@ import Categories from '../src/screens/Categories'
 import Create from '../src/screens/Create'
 import Activity from '../src/screens/Activity'
 import Profile from '../src/screens/Profile'
+import Home from '../src/screens/Home';
+import { useRoute } from '@react-navigation/native';
 
 const Tab = createBottomTabNavigator();
 
 const Tabs = () => {
+
+    const route = useRoute();
+    const { email } = route.params;
+
     return(
         <Tab.Navigator
             screenOptions={{
@@ -23,10 +29,12 @@ const Tabs = () => {
                     backgroundColor: '#FAC6C4',
                     borderRadius: 20,
                     ...styles.shadow,
-             },
+            },
             }}
         >
-            <Tab.Screen name="HomeTwo" component ={HomeTwo} options ={{
+            <Tab.Screen name="Home" component ={Home}
+                initialParams = {{email: email}}
+                options ={{
                 tabBarIcon: ({focused}) => {
                     return(
                         <View style={{alignItems: 'center', justifyContent: 'center', top:3}}>
