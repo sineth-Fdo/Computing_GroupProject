@@ -18,11 +18,11 @@ const App = () => {
   return (
     <NavigationContainer>
       <Stack.Navigator>
-      <Stack.Screen
+      {/* <Stack.Screen
           name="Categories"
           component={Categories}
           options={{headerShown: false}}
-        />
+        /> */}
         <Stack.Screen
           name="getstarted"
           component={GetStarted}
