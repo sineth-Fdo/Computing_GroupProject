@@ -10,6 +10,7 @@ import ScreenTwo from './src/screens/ScreenTwo';
 import ScreenThree from './src/screens/ScreenThree';
 import GetStarted from './src/screens/GetStarted';
 import Tabs from './navigation/Tabs';
+import Categories from './src/screens/Categories'
 
 const Stack = createNativeStackNavigator();
 
@@ -17,6 +18,11 @@ const App = () => {
   return (
     <NavigationContainer>
       <Stack.Navigator>
+      <Stack.Screen
+          name="Categories"
+          component={Categories}
+          options={{headerShown: false}}
+        />
         <Stack.Screen
           name="getstarted"
           component={GetStarted}
