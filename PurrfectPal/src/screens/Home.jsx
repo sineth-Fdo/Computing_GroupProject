@@ -51,7 +51,6 @@ const Home = () => {
       {user.profilePic ?
         <Image source={{ uri: `https://firebasestorage.googleapis.com/v0/b/purfectpal-b93c7.appspot.com/o/users%2F${user.profilePic}?alt=media&token=d33b3e86-8008-49dd-9734-36f5405d44b9` }} style={styles.profileImage} /> :
         <Image source={require('../../assets/Images/user-default.jpg')} style={styles.profileImage} />}
-
     </View>
   )
 }

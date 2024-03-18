@@ -23,7 +23,6 @@ const Tabs = () => {
                     backgroundColor: '#FAC6C4',
                     borderRadius: 20,
                     ...styles.shadow,
-
              },
             }}
         >
@@ -48,10 +47,11 @@ const Tabs = () => {
                         }}>Home</Text>
                     </View>
                     )
-                }
+                },
+                headerShown: false,
             }}/>
 
-            <Tab.Screen name="Find" component ={Categories} options ={{
+            <Tab.Screen name="Categories" component ={Categories} options ={{
                 tabBarIcon: ({focused}) => {
                     return(
                         <View style={{alignItems: 'center', justifyContent: 'center', top:3}}>
@@ -72,10 +72,11 @@ const Tabs = () => {
                         }}>Categories</Text>
                     </View>
                     )
-                }
+                },
+                headerShown: false,
             }}/>
 
-            <Tab.Screen name="Post" component ={Create} options ={{
+            <Tab.Screen name="Create" component ={Create} options ={{
                 tabBarIcon: ({focused}) => {
                     return(
                         <View style={{alignItems: 'center', justifyContent: 'center', top:3}}>
@@ -96,10 +97,11 @@ const Tabs = () => {
                         }}>Create</Text>
                     </View>
                     )
-                }
+                },
+                headerShown: false,
             }}/>
 
-            <Tab.Screen name="Settings" component ={Activity} options ={{
+            <Tab.Screen name="Activity" component ={Activity} options ={{
                 tabBarIcon: ({focused}) => {
                     return(
                         <View style={{alignItems: 'center', justifyContent: 'center', top:3,}}>
@@ -111,7 +113,6 @@ const Tabs = () => {
                                 height: 25,
                                 tintColor: focused ? '#e32f45' : '#111F2F',
                                 bottom: 3,
-
                             }}
                         />
                         <Text style = {{
@@ -121,10 +122,11 @@ const Tabs = () => {
                         }}>Activity</Text>
                     </View>
                     )
-                }
+                },
+                headerShown: false,
             }}/>
 
-            <Tab.Screen name="Chat" component ={Profile} options ={{
+            <Tab.Screen name="Profile" component ={Profile} options ={{
                 tabBarIcon: ({focused}) => {
                     return(
                         <View style={{alignItems: 'center', justifyContent: 'center', top:3}}>
@@ -145,7 +147,8 @@ const Tabs = () => {
                         }}>Profile</Text>
                     </View>
                     )
-                }
+                },
+                headerShown: false,
             }}/>
         </Tab.Navigator>
     )
