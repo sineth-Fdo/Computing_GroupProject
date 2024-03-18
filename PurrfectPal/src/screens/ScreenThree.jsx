@@ -83,12 +83,12 @@ const styles = StyleSheet.create({
 
     Heading: {
         color: 'black',
-        fontSize: bigTextWidth / 1.1,
+        fontSize: bigTextWidth / 1.2,
         fontFamily: 'Poppins-Medium'
     },
     cont: {
         color: 'black',
-        fontSize: SmallTextWidth * 1.3,
+        fontSize: SmallTextWidth * 1.2,
         fontFamily: 'Poppins-Regular',
         textAlign: 'center'
     },
