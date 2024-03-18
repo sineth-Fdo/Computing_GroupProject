@@ -1,5 +1,5 @@
 import { useNavigation } from '@react-navigation/native';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Alert, Image, SafeAreaView, StatusBar, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import GoogleBtn from '../components/GoogleBtn';
 import LoginSubmitBtn from '../components/LoginSubmitBtn';
@@ -7,6 +7,12 @@ import LoginTextBox from '../components/LoginTextBox';
 import { SmallTextWidth, height, width } from '../global/Dimensions';
 import KeyBoardAvoiding from '../global/KeyBoardAvoiding';
 import auth from '@react-native-firebase/auth';
+import {
+  GoogleSignin,
+  statusCodes,
+} from '@react-native-google-signin/google-signin';
+
+
 
 
 
@@ -15,6 +21,32 @@ const Login = () => {
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+
+
+  useEffect(() => {
+
+    GoogleSignin.configure({
+      webClientId: '531138760190-j25ertb3vs0b1l70p6aqrh73legqm50j.apps.googleusercontent.com',
+    });
+  }, []);
+
+  
+  
+  const GoogleBtnPress = async () => {
+    try {
+      await GoogleSignin.hasPlayServices();
+      const userInfo = await GoogleSignin.signIn();
+      console.log(userInfo);
+      
+    } catch (error) {
+      console.log('Google Sign-In Error:', error);
+      // Handle Google Sign-In errors
+    }
+  };
+  
+
+
+
 
   const handleEmailChange = (inputText) => {
     setEmail(inputText);
@@ -86,7 +118,7 @@ const Login = () => {
 
       <View style = {{backgroundColor : '#D0DEEE',width: width - 40, height : 1, marginVertical : 20}}></View>
 
-          <GoogleBtn />
+          <GoogleBtn onPress={GoogleBtnPress}/>
 
             
           <View style = {{flexDirection : 'row', marginTop : 15}}>

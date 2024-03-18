@@ -12,7 +12,20 @@
           "package_name": "com.purrfectpal"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "531138760190-4mi7eosf906v1irt56rtv13u3qfn1evl.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.purrfectpal",
+            "certificate_hash": "5e44b8269651845113a5ae7ef00061abdce91172"
+          }
+        },
+        {
+          "client_id": "531138760190-j25ertb3vs0b1l70p6aqrh73legqm50j.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyCftN_0au-ra9cUmidxy1FTjDaArMNH9ls"
@@ -20,7 +33,12 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "531138760190-j25ertb3vs0b1l70p6aqrh73legqm50j.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         }
       }
     }
