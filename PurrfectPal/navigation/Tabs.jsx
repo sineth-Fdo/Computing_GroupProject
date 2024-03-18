@@ -23,7 +23,6 @@ const Tabs = () => {
                     backgroundColor: '#FAC6C4',
                     borderRadius: 20,
                     ...styles.shadow,
-
              },
             }}
         >
@@ -111,7 +110,6 @@ const Tabs = () => {
                                 height: 25,
                                 tintColor: focused ? '#e32f45' : '#111F2F',
                                 bottom: 3,
-
                             }}
                         />
                         <Text style = {{

@@ -11,7 +11,6 @@ import ScreenThree from './src/screens/ScreenThree';
 import GetStarted from './src/screens/GetStarted';
 import Tabs from './navigation/Tabs';
 
-
 const Stack = createNativeStackNavigator();
 
 const App = () => {
