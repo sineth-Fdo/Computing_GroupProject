@@ -68,7 +68,7 @@ const Login = () => {
           .then((res) => {
             console.log(res)
             Alert.alert('Logged in successfully')
-            navigation.navigate('Home', {email : email})
+            navigation.navigate('Dashboard', {email : email})
           })
           .catch((error) =>{
             console.log(error)

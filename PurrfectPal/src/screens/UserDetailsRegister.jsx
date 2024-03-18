@@ -73,7 +73,7 @@ const UserDetailsRegister = () => {
                   setName('');
                   setUserName('');
                   
-                  navigation.navigate('Home', {email : email});
+                  navigation.navigate('Dashboard', {email : email});
               }).catch((error) => {
                   Alert.alert('Error Adding User');
               })
@@ -81,7 +81,7 @@ const UserDetailsRegister = () => {
           setTimeout(() => {
               
               hideModal();
-              navigation.navigate('Home', { email: email });
+              navigation.navigate('Dashboard', { email: email });
           }, 2000);
       };
 
@@ -144,7 +144,7 @@ const UserDetailsRegister = () => {
                     setName('');
                     setUserName('');
                     
-                    navigation.navigate('Home', {email : email});
+                    navigation.navigate('Dashboard', {email : email});
 
                 }).catch((error) => {
                     Alert.alert('Error Adding User');
@@ -153,7 +153,7 @@ const UserDetailsRegister = () => {
                 setTimeout(() => {
               
                   hideModal();
-                  navigation.navigate('Home', { email: email });
+                  navigation.navigate('Dashboard', { email: email });
               }, 2000);
             }
     };

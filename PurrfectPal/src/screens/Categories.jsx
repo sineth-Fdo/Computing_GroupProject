@@ -8,8 +8,8 @@ const Categories = () => {
   const navigation = useNavigation();
 
   return (
-    <ScrollView contentContainerStyle={styles.scrollViewContent}>
-      <View style = {styles.searchView}>
+        <ScrollView contentContainerStyle={styles.scrollViewContent}>
+    <View style = {styles.searchView}>
         <Text style= {styles.ViewHeaders}>Search</Text>
         <SearchBox placeholder = 'Search Anything ...'/>
       </View>
