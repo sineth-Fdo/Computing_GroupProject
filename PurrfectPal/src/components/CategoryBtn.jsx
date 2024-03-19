@@ -4,7 +4,7 @@ import { TouchableOpacity, Text, Image } from 'react-native';
 
 
 const CategoryBtn = (props) => {
-    const { icon, cateName, fsize } = props;
+    const { icon, cateName, fsize, imgResize, mb } = props;
 
     const navigation = useNavigation();
 
@@ -13,8 +13,9 @@ const CategoryBtn = (props) => {
             <Image
                 source={icon}
                 style = {{
-                    height: 50,
-                    width:50,
+                    height: imgResize ? imgResize : 50,
+                    width: imgResize ? imgResize : 50,
+                    marginBottom: mb ? mb : 0
                 }}
             />
             <Text style = {{color: 'black', fontFamily: 'Poppins-Regular', fontSize: fsize ? fsize : 12}}>{cateName}</Text>
