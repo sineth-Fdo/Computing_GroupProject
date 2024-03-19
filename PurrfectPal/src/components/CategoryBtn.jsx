@@ -4,7 +4,7 @@ import { TouchableOpacity, Text, Image } from 'react-native';
 
 
 const CategoryBtn = (props) => {
-    const { icon, cateName, fsize, imgResize, mb } = props;
+    const { icon, cateName, fsize, imgResize, mb,  } = props;
 
     const navigation = useNavigation();
 

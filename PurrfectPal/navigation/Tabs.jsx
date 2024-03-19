@@ -1,7 +1,7 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { StyleSheet, View, Text, Image } from 'react-native';
 
-import HomeTwo from '../src/screens/HomeTwo'
+
 import Categories from '../src/screens/Categories'
 import Create from '../src/screens/Create'
 import Activity from '../src/screens/Activity'
