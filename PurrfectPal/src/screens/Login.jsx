@@ -7,10 +7,7 @@ import LoginTextBox from '../components/LoginTextBox';
 import { SmallTextWidth, height, width } from '../global/Dimensions';
 import KeyBoardAvoiding from '../global/KeyBoardAvoiding';
 import auth from '@react-native-firebase/auth';
-import {
-  GoogleSignin,
-  statusCodes,
-} from '@react-native-google-signin/google-signin';
+import { GoogleSignin } from '@react-native-google-signin/google-signin';
 
 
 
@@ -26,7 +23,7 @@ const Login = () => {
   useEffect(() => {
 
     GoogleSignin.configure({
-      webClientId: '531138760190-j25ertb3vs0b1l70p6aqrh73legqm50j.apps.googleusercontent.com',
+      webClientId: '531138760190-24uuvr5a24ejukca29ho2efcqqd4au2d.apps.googleusercontent.com',
     });
   }, []);
 
@@ -36,7 +33,11 @@ const Login = () => {
     try {
       await GoogleSignin.hasPlayServices();
       const userInfo = await GoogleSignin.signIn();
-      console.log(userInfo);
+
+      // const { idToken } = await GoogleSignin.signIn();
+      // const googleCredential = auth.GoogleAuthProvider.credential(idToken);
+      // auth().signInWithCredential(googleCredential);
+      console.log(userInfo)
       
     } catch (error) {
       console.log('Google Sign-In Error:', error);
