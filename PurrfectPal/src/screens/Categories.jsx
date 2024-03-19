@@ -19,20 +19,20 @@ const Categories = () => {
           <CategoryBtn icon= {require('../../assets/Images/petIcons/dog.png')} cateName= 'Dogs' />
           <CategoryBtn icon= {require('../../assets/Images/petIcons/cat.png')} cateName= 'Cats' />
           <CategoryBtn icon= {require('../../assets/Images/petIcons/hamster.png')} cateName= 'Hamsters' fsize = {12}/>
-          <CategoryBtn icon= {require('../../assets/Images/petIcons/dog.png')} cateName= 'Dogs' />
-          <CategoryBtn icon= {require('../../assets/Images/petIcons/dog.png')} cateName= 'Dogs' />
-          <CategoryBtn icon= {require('../../assets/Images/petIcons/dog.png')} cateName= 'Dogs' />
-          <CategoryBtn icon= {require('../../assets/Images/petIcons/dog.png')} cateName= 'Dogs' />
-          <CategoryBtn icon= {require('../../assets/Images/petIcons/dog.png')} cateName= 'Dogs' />
-          <CategoryBtn icon= {require('../../assets/Images/petIcons/dog.png')} cateName= 'Dogs' />
-          <CategoryBtn icon= {require('../../assets/Images/petIcons/dog.png')} cateName= 'Dogs' />
-          <CategoryBtn icon= {require('../../assets/Images/petIcons/dog.png')} cateName= 'Dogs' />
-          <CategoryBtn icon= {require('../../assets/Images/petIcons/dog.png')} cateName= 'Dogs' />
-          <CategoryBtn icon= {require('../../assets/Images/petIcons/dog.png')} cateName= 'Dogs' />
-          <CategoryBtn icon= {require('../../assets/Images/petIcons/dog.png')} cateName= 'Dogs' />
-          <CategoryBtn icon= {require('../../assets/Images/petIcons/dog.png')} cateName= 'Dogs' />
-          <CategoryBtn icon= {require('../../assets/Images/petIcons/dog.png')} cateName= 'Dogs' />
-          <CategoryBtn icon= {require('../../assets/Images/petIcons/dog.png')} cateName= 'Dogs' />
+          <CategoryBtn icon= {require('../../assets/Images/petIcons/rabbit.png')} cateName= 'Rabbits' />
+          <CategoryBtn icon= {require('../../assets/Images/petIcons/bird.png')} cateName= 'Birds' />
+          <CategoryBtn icon= {require('../../assets/Images/petIcons/turtle.png')} cateName= 'Turtles' />
+          <CategoryBtn icon= {require('../../assets/Images/petIcons/guineapig.png')} cateName= 'Guinea Pigs' imgResize = {40} mb= {7}/>
+          <CategoryBtn icon= {require('../../assets/Images/petIcons/hedgehog.png')} cateName= 'Hedgehogs' />
+          <CategoryBtn icon= {require('../../assets/Images/petIcons/horse.png')} cateName= 'Horses' />
+          <CategoryBtn icon= {require('../../assets/Images/petIcons/fish.png')} cateName= 'Fishes' />
+          <CategoryBtn icon= {require('../../assets/Images/petIcons/farmanimals.png')} cateName= 'Farm Animals' fsize = {11} />
+          <CategoryBtn icon= {require('../../assets/Images/petIcons/squirrel.png')} cateName= 'Squirrels' />
+          <CategoryBtn icon= {require('../../assets/Images/petIcons/mouse.png')} cateName= 'Mice' />
+          <CategoryBtn icon= {require('../../assets/Images/petIcons/snake.png')} cateName= 'Reptiles' />
+          <CategoryBtn icon= {require('../../assets/Images/petIcons/insects.png')} cateName= 'Insects' />
+          <CategoryBtn icon= {require('../../assets/Images/petIcons/amphibians.png')} cateName= 'Amphibians' />
+          <CategoryBtn cateName= 'Others' />
         </View>
       </View>
     </ScrollView>
