@@ -1,23 +1,32 @@
 import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native'
 import React from 'react'
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import firestore from '@react-native-firebase/firestore';
 
 
 
 
-const ProfileTopBar = () => {
+const ProfileTopBar = (props) => {
+
+    const { uName, uPic } = props;
+
     return (
             <View style = {styles.pBigContainer}>
             <View style = {styles.pLeftContainer}>
             <View style = {{borderColor : '#D0DEEE',borderRadius : 100}}>
+            {
+            uPic ?
+                <Image source={{ uri: `https://firebasestorage.googleapis.com/v0/b/purfectpal-b93c7.appspot.com/o/users%2F${uPic}?alt=media&token=d33b3e86-8008-49dd-9734-36f5405d44b9` }} style={styles.profileImage} /> :
                 <Image source={require('../../assets/Images/user-default.jpg')} style={styles.profileImage} />
+            }
+                
             </View>
 
             <View style = {{justifyContent : 'center',alignItems : 'start',paddingHorizontal : 10}}>
-                <Text style = {{fontSize : 18,color : '#000',fontFamily : 'Poppins-SemiBold'}}>Rusith Tharindu</Text>
+                <Text style = {{fontSize : 18,color : '#000',fontFamily : 'Poppins-SemiBold'}}>{uName}</Text>
 
                 <View style ={{flexDirection : 'row',}}>
-                    <Ionicons name="location-outline" size={23} color="#000" solid />
+                    <Ionicons name="location-outline" size={16} color="#000" solid />
                     <Text style = {{color : '#000'}}>Gampaha ,Western Province </Text> 
                 </View>
             </View>

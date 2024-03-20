@@ -11,6 +11,7 @@ import ScreenThree from './src/screens/ScreenThree';
 import GetStarted from './src/screens/GetStarted';
 import Tabs from './navigation/Tabs';
 import Create from './src/screens/Create'
+import SplashScreen from './src/screens/SplashScreen';
 
 const Stack = createNativeStackNavigator();
 
@@ -24,6 +25,12 @@ const App = () => {
           component={Create}
           options={{headerShown: false}}
         /> */}
+        <Stack.Screen
+          name="Splash"
+          component={SplashScreen}
+          options={{headerShown: false}}
+        />
+        
         <Stack.Screen
           name="getstarted"
           component={GetStarted}

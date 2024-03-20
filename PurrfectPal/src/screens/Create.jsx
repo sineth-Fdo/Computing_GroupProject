@@ -13,6 +13,9 @@ import LoginSubmitBtn from '../components/LoginSubmitBtn'
 const Create = () => {
   const [selected, setSelected] = useState("");
   const [myValue, setMyValue]  = useState();
+  const [selectedGen, setSelectedGen] = useState('male');
+  const [selectedPur, setSelectedPur] = useState('adpot');
+  const [selectedLoc, setSelectedLoc] = useState('default');
 
   const genderButtons = useMemo(() => ([
     {
@@ -53,7 +56,7 @@ const Create = () => {
     }
   ]), []);
 
-const [selectedId, setSelectedId] = useState();
+;
 
   return (
     <KeyBoardAvoiding>
@@ -89,7 +92,7 @@ const [selectedId, setSelectedId] = useState();
             }}
             buttonStyle = {{width: '100%', backgroundColor: '#D0DEEE', color: '#000', borderRadius: 5}}
             buttonTextStyle = {{fontFamily: 'Poppins-Regular', fontSize: 15}}
-            dropdownStyle = {{backgroundColor: '#D0DEEE', color: '#000', borderRadius: 5}}
+            dropdownStyle = {{backgroundColor: '#D0DEEE', color: '#000', borderRadius: 15}}
           />
 
           {/* <Text style = {{color: '#000'}}>{myValue}</Text> */}
@@ -113,12 +116,12 @@ const [selectedId, setSelectedId] = useState();
           <Text style = {styles.formHeaders}>Gender *</Text>
           <RadioGroup 
             radioButtons={genderButtons} 
-            onPress={setSelectedId}
-            selectedId={selectedId}
+            onPress={setSelectedGen}
+            selectedId={selectedGen}
             labelStyle= {{color: '#000', fontFamily: 'Poppins-Regular'}}
             containerStyle = {{alignItems:'flex-start', marginBottom: 5}}
         />
-         
+    
 
           
           {/* Breed */}
@@ -149,14 +152,22 @@ const [selectedId, setSelectedId] = useState();
           {/* For Radio Buttons */}
           <RadioGroup 
             radioButtons={purposeButtons} 
-            onPress={setSelectedId}
-            selectedId={selectedId}
+            onPress={setSelectedPur}
+            selectedId={selectedPur}
             labelStyle= {{color: '#000', fontFamily: 'Poppins-Regular'}}
             containerStyle = {{alignItems:'flex-start', marginBottom: 5}}
         />  
 
-          <Text style = {styles.formHeaders}>Price</Text>
-          <TextBox placeholder = 'LKR'/>
+        
+
+        { selectedPur === 'sale' ? (
+          <>
+              <Text style = {styles.formHeaders}>Price</Text>
+              <TextBox placeholder = 'LKR'/>
+          </>
+        ) : (null)}
+
+          
 
 
 
@@ -177,15 +188,27 @@ const [selectedId, setSelectedId] = useState();
           {/* For Radio Buttons */}
           <RadioGroup 
             radioButtons={locationButtons} 
-            onPress={setSelectedId}
-            selectedId={selectedId}
+            onPress={setSelectedLoc}
+            selectedId={selectedLoc}
             labelStyle= {{color: '#000', fontFamily: 'Poppins-Regular'}}
             containerStyle = {{alignItems:'flex-start', marginBottom: 5}}
         />
+      
+
+        {
+          selectedLoc === 'custom' ? (
+            <>
+                {/* Address */}
+              <Text style = {styles.formHeaders}>Address</Text>
+              <MultilineTxtBox placeholder = 'Enter your Custom Address'/>
+            </>
+          ) : (
+            null
+          )
+        }
           
-          {/* Address */}
-          <Text style = {styles.formHeaders}>Address</Text>
-          <MultilineTxtBox placeholder = 'Enter your Custom Address'/>
+          
+          
           
           <Text style = {styles.formHeaders}>District</Text>
           <SelectDropdown
@@ -207,7 +230,7 @@ const [selectedId, setSelectedId] = useState();
             }}
             buttonStyle = {{width: '100%', backgroundColor: '#D0DEEE', color: '#000', borderRadius: 5}}
             buttonTextStyle = {{fontFamily: 'Poppins-Regular',fontSize: 15}}
-            dropdownStyle = {{backgroundColor: '#D0DEEE', color: '#000', borderRadius: 5}}
+            dropdownStyle = {{backgroundColor: '#D0DEEE', color: '#000', borderRadius: 15}}
           />
 
           <Text style = {styles.formHeaders}>Province</Text>
@@ -230,7 +253,7 @@ const [selectedId, setSelectedId] = useState();
             }}
             buttonStyle = {{width: '100%', backgroundColor: '#D0DEEE', color: '#000', borderRadius: 5}}
             buttonTextStyle = {{fontFamily: 'Poppins-Regular', fontSize: 15}}
-            dropdownStyle = {{backgroundColor: '#D0DEEE', color: '#000', borderRadius: 5}}
+            dropdownStyle = {{backgroundColor: '#D0DEEE', color: '#000', borderRadius: 15}}
           />
 
           {/* Divider */}
