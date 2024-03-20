@@ -18,7 +18,7 @@ const CategoryBtn = (props) => {
                     marginBottom: mb ? mb : 0
                 }}
             />
-            <Text style = {{color: 'black', fontFamily: 'Poppins-Regular', fontSize: fsize ? fsize : 12}}>{cateName}</Text>
+            <Text style = {{color: 'black', fontFamily: 'Poppins-Medium', fontSize: fsize ? fsize : 12}}>{cateName}</Text>
         </TouchableOpacity>
     );
 };
