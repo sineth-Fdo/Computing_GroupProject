@@ -101,7 +101,7 @@ const Tabs = () => {
                         <Text style = {{
                             color: focused ? '#e32f45' : '#111F2F',
                             fontSize: 12,
-                            fontFamily: 'Poppins-SemiBold'
+                            fontFamily: 'Poppins-SemiBold',
                         }}>Create</Text>
                     </View>
                     )
