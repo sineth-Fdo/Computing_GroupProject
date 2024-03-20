@@ -8,6 +8,8 @@ import { SmallTextWidth, height, width } from '../global/Dimensions';
 import KeyBoardAvoiding from '../global/KeyBoardAvoiding';
 import auth from '@react-native-firebase/auth';
 import { GoogleSignin } from '@react-native-google-signin/google-signin';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
 
 
 
@@ -25,6 +27,7 @@ const Login = () => {
     GoogleSignin.configure({
       webClientId: '531138760190-24uuvr5a24ejukca29ho2efcqqd4au2d.apps.googleusercontent.com',
     });
+  
   }, []);
 
   
@@ -57,6 +60,19 @@ const Login = () => {
     setPassword(inputText);
   };
 
+  const storeData = async (value) => {
+    try {
+      await AsyncStorage.setItem('email', value);
+      await AsyncStorage.setItem('firstTime', 'false');
+      
+    } catch (e) {
+      // saving error
+      console.log(e);
+    }
+  };
+
+
+
   
 
   const loginEmailAndPassword = () => {
@@ -65,11 +81,14 @@ const Login = () => {
       return;
     }else {
 
+      storeData(email);
+
       auth().signInWithEmailAndPassword(email, password)
           .then((res) => {
-            console.log(res)
-            Alert.alert('Logged in successfully')
-            navigation.navigate('Dashboard', {email : email})
+            
+            navigation.navigate('Dashboard', {email : email});
+            setEmail('');
+            setPassword('');
           })
           .catch((error) =>{
             console.log(error)

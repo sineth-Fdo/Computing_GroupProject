@@ -6,46 +6,53 @@ import CategoryBtn from '../components/CategoryBtn';
 import { SmallTextWidth, height, width } from '../global/Dimensions';
 import AdoptionHomeCard from '../components/AdoptionHomeCard';
 import ProfileTopBar from '../components/ProfileTopBar';
+import LottieView from "lottie-react-native";
 
 
 
 const Home = (props) => {
 
-  // const { email } = props.route.params;
+  const { email } = props.route.params;
 
   
 
-  // const [user, setUser] = useState(null);
+  const [user, setUser] = useState(null);
 
-  // const getUserData = async () => {
-  //   try {
-  //     const userSnapshot = await firestore()
-  //       .collection('users')
-  //       .where('email', '==', email)
-  //       .get();
+  const getUserData = async () => {
+    try {
+      const userSnapshot = await firestore()
+        .collection('users')
+        .where('email', '==', email)
+        .get();
 
-  //     if (userSnapshot.docs.length > 0) {
-  //       const userData = userSnapshot.docs[0].data();
-  //       setUser(userData);
-  //     } else {
-  //       console.log('No user found with the provided email');
-  //     }
-  //   } catch (error) {
-  //     console.error('Error fetching user data:', error);
-  //   }
-  // }
+      if (userSnapshot.docs.length > 0) {
+        const userData = userSnapshot.docs[0].data();
+        setUser(userData);
+      } else {
+        console.log('No user found with the provided email');
+      }
+    } catch (error) {
+      console.error('Error fetching user data:', error);
+    }
+  }
 
-  // useEffect(() => {
-  //   getUserData();
-  // }, [])
+  useEffect(() => {
+    getUserData();
+  }, [])
 
-  // if (!user) {
-  //   return (
-  //     <View style={styles.container}>
-  //       <Text>Loading...</Text>
-  //     </View>
-  //   );
-  // }
+  if (!user) {
+    return (
+      <View style={styles.containerLoading}>
+        <LottieView
+            source={require("../../assets/Images/Animated/catLoading.json")}
+            style={{ width: 80, height: 80, }}
+            autoPlay
+            loop
+          />
+          <Text style = {{color : '#000'}}>Loading...</Text>
+      </View>
+    );
+  }
 
   // return (
   //   <View style={styles.container}>
@@ -62,7 +69,10 @@ const Home = (props) => {
   return (
     <SafeAreaView style={styles.container}>
         {/* profile View */}
-        <ProfileTopBar />
+        <ProfileTopBar 
+            uName = {user.name}
+            uPic = {user.profilePic}
+        />
 
         <ScrollView>
         {/* categories View */}
@@ -83,7 +93,8 @@ const Home = (props) => {
         </View> 
         </View> 
          {/* categories View End */}
-
+        
+        
         
         {/* Cards View */}
 
@@ -105,6 +116,13 @@ export default Home;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+  
+    
+  },
+  containerLoading: {
+    flex: 1,
+    justifyContent : 'center',
+    alignItems : 'center',
     
     
   },
