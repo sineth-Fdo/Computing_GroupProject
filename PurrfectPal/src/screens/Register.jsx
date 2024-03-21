@@ -7,6 +7,7 @@ import LoginSubmitBtn from '../components/LoginSubmitBtn';
 import LoginTextBox from '../components/LoginTextBox';
 import { height, width } from '../global/Dimensions';
 import KeyBoardAvoiding from '../global/KeyBoardAvoiding';
+// import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Register = () => {
   const navigation = useNavigation();
@@ -22,15 +23,28 @@ const Register = () => {
     setPassword(inputText);
   };
 
+
+  const storeData = async (value) => {
+    try {
+      await AsyncStorage.setItem('email', value);
+      await AsyncStorage.setItem('firstTime', 'false');
+      
+    } catch (e) {
+      // saving error
+      console.log(e);
+    }
+  };
+
+  
+
   const register = () => {
     if (!email || !password) {
       Alert.alert('Please fill in the required fields');
       return;
     }else {
-
+      storeData(email);
       auth()
       .createUserWithEmailAndPassword(email, password).then(() => {
-        Alert.alert('User account created');
         navigation.navigate('UserDetailsRegister',{email : email});
       })
       .catch (error => {
@@ -38,6 +52,9 @@ const Register = () => {
       })
     }
   }
+
+
+
 
   return (
     <KeyBoardAvoiding>
