@@ -78,7 +78,7 @@ const Home = (props) => {
         {/* categories View */}
         <View style = {{width : '100%' ,height : 'auto',justifyContent : 'center',alignItems : 'center',}}>
         <View style = {{width : '93%' ,height : 'auto',borderWidth : 4,borderColor : '#D0DEEE',borderRadius : 20,paddingVertical : 10,paddingHorizontal : 5}}>
-          <View style = {{}}>
+          <View>
             <Text style = {{color : '#000',fontSize : 25, fontFamily : 'Poppins-Bold',left : 10}}>Categories</Text>
           </View>
 

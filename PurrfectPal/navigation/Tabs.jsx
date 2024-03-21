@@ -23,18 +23,21 @@ const Tabs = () => {
                 tabBarStyle: {
                     height: 70,
                     position: 'absolute',
-                    bottom: 25,
-                    left: 20,
-                    right: 20,
+                    bottom: 0,
+                    left: 0,
+                    right: 0,
                     backgroundColor: '#FAC6C4',
-                    borderRadius: 20,
+                    borderTopLeftRadius: 20,
+                    borderTopRightRadius: 20,
                     ...styles.shadow,
             },
             }}
         >
             <Tab.Screen name="Home" component ={Home}
                 initialParams = {{email: email}}
+                
                 options ={{
+                    tabBarHideOnKeyboard : true,
                 tabBarIcon: ({focused}) => {
                     return(
                         <View style={{alignItems: 'center', justifyContent: 'center', top:3}}>
@@ -59,7 +62,10 @@ const Tabs = () => {
                 headerShown: false,
             }}/>
 
-            <Tab.Screen name="Categories" component ={Categories} options ={{
+            <Tab.Screen name="Categories" component ={Categories} 
+                initialParams = {{email: email}}
+                options ={{
+                    tabBarHideOnKeyboard : true,
                 tabBarIcon: ({focused}) => {
                     return(
                         <View style={{alignItems: 'center', justifyContent: 'center', top:3}}>
@@ -84,7 +90,10 @@ const Tabs = () => {
                 headerShown: false,
             }}/>
 
-            <Tab.Screen name="Create" component ={Create} options ={{
+            <Tab.Screen name="Create" component ={Create} 
+            initialParams = {{email: email}}
+            options ={{
+                tabBarHideOnKeyboard : true,
                 tabBarIcon: ({focused}) => {
                     return(
                         <View style={{alignItems: 'center', justifyContent: 'center', top:3}}>
@@ -109,7 +118,10 @@ const Tabs = () => {
                 headerShown: false,
             }}/>
 
-            <Tab.Screen name="Activity" component ={Activity} options ={{
+            <Tab.Screen name="Activity" component ={Activity} 
+            initialParams = {{email: email}}
+            options ={{
+                tabBarHideOnKeyboard : true,
                 tabBarIcon: ({focused}) => {
                     return(
                         <View style={{alignItems: 'center', justifyContent: 'center', top:3,}}>
@@ -134,7 +146,10 @@ const Tabs = () => {
                 headerShown: false,
             }}/>
 
-            <Tab.Screen name="Profile" component ={Profile} options ={{
+            <Tab.Screen name="Profile" component ={Profile} 
+            initialParams = {{email: email}}
+            options ={{
+                tabBarHideOnKeyboard : true,
                 tabBarIcon: ({focused}) => {
                     return(
                         <View style={{alignItems: 'center', justifyContent: 'center', top:3}}>

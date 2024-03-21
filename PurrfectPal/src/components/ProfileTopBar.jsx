@@ -2,6 +2,7 @@ import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native'
 import React from 'react'
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import firestore from '@react-native-firebase/firestore';
+import { useNavigation } from '@react-navigation/native';
 
 
 
@@ -9,6 +10,7 @@ import firestore from '@react-native-firebase/firestore';
 const ProfileTopBar = (props) => {
 
     const { uName, uPic } = props;
+    const navigation = useNavigation();
 
     return (
             <View style = {styles.pBigContainer}>
@@ -34,8 +36,8 @@ const ProfileTopBar = (props) => {
 
             <View style = {{width : '10%',justifyContent : 'center',alignItems : 'center'}}>
             <TouchableOpacity 
+                    onPress = {() => {navigation.navigate('Categories')}}
                     style = {{borderWidth : 4,borderColor : '#D0DEEE',width : 47, height : 47, borderRadius : 100, justifyContent : 'center',alignItems : 'center'}}>
-                
                     <Ionicons name="search" size={25} color="#000" solid />
             </TouchableOpacity>
             
