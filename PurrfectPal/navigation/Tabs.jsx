@@ -167,7 +167,7 @@ const Tabs = () => {
                             color: focused ? '#e32f45' : '#111F2F',
                             fontSize: 12,
                             fontFamily: 'Poppins-SemiBold'
-                        }}>Profile</Text>
+                        }}>Account</Text>
                     </View>
                     )
                 },
