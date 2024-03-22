@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, ScrollView, TextInput, Select, Alert, SafeAreaView, StatusBar } from 'react-native'
+import { StyleSheet, Text, View, ScrollView, TextInput, Select, Alert, SafeAreaView, StatusBar, TouchableOpacity, Image, Modal } from 'react-native'
 import {useState, useMemo} from 'react'
 import KeyBoardAvoiding from '../global/KeyBoardAvoiding'
 import TextBox from '../components/TextBox'
@@ -6,18 +6,31 @@ import MultilineTxtBox from '../components/MultilineTxtBox'
 import { SelectList } from 'react-native-dropdown-select-list'
 import { Categories, Districts, Provinces, Gender } from '../components/DataList'
 import SelectDropdown from 'react-native-select-dropdown'
+import { SmallTextWidth, height, width } from '../global/Dimensions';
 import RadioGroup from 'react-native-radio-buttons-group';
 import LoginSubmitBtn from '../components/LoginSubmitBtn'
 import { firebase } from '@react-native-firebase/firestore';
 import storage from '@react-native-firebase/storage';
+import Entypo from 'react-native-vector-icons/dist/Entypo';
+import MaterialIcons from 'react-native-vector-icons/dist/MaterialIcons';
+import * as ImagePicker from 'react-native-image-picker';
+import LottieView from "lottie-react-native";
+import { useNavigation } from '@react-navigation/native'
 
 
-const Create = () => {
-  const [selected, setSelected] = useState();
-  const [myValue, setMyValue]  = useState();
+
+
+
+const Create = (props) => {
+
+  const { email } = props.route.params;
+  const navigation = useNavigation();
+
   const [selectedGen, setSelectedGen] = useState('male');
   const [selectedPur, setSelectedPur] = useState('adpot');
   const [selectedLoc, setSelectedLoc] = useState('default');
+  const [images, setImages] = useState([]);
+  const [selectedImageIndex, setSelectedImageIndex] = useState(0);
   
   const [category, setCategory]  = useState();
   const [district, setDistrict]  = useState();
@@ -26,14 +39,16 @@ const Create = () => {
   const [title , setTitle] = useState('');
   const [description , setDescription] = useState('');
   const [bread , setBread] = useState('');
-  const [ageYear , setAgeYear] = useState('');
-  const [ageMonth , setAgeMonth] = useState('');
+  const [ageYear , setAgeYear] = useState(0);
+  const [ageMonth , setAgeMonth] = useState(0);
   const [vaccination , setVaccination] = useState('');
   const [health , setHealth] = useState('');
   const [contact , setContact] = useState(0);
   const [otherCategory , setOtherCategory] = useState('');
   const [price , setPrice] = useState(0);
   
+  const [modalVisible, setModalVisible] = useState(false);
+  const [uploadingValue, setUploadingValue] = useState(0);
 
 
 
@@ -86,11 +101,13 @@ const descriptionHandler = (inputText) => {
 };
 
 const ageYearHandler = (inputText) => {
-  setAgeYear(inputText);
+  const newYear = parseInt(inputText);
+  setAgeYear(newYear);
 };
 
 const ageMonthHandler = (inputText) => {
-  setAgeMonth(inputText);
+  const newMonth = parseInt(inputText);
+  setAgeMonth(newMonth);
 };
 
 const breadHandler = (inputText) => {
@@ -119,39 +136,119 @@ const priceHandler = (inputText) => {
   setPrice(newPrice);
 };
 
+// images picker
+const selectImages = () => {
+  const options = {
+    mediaType: 'photo',
+    maxWidth: 2000,
+    maxHeight: 2000,
+    quality: 1,
+    includeBase64: true,
+    selectionLimit: 5, // Limit the selection to 5 images
+  };
+
+  ImagePicker.launchImageLibrary(options, (response) => {
+    if (response.didCancel) {
+      console.log('User cancelled image picker');
+    } else if (response.error) {
+      console.log('ImagePicker Error: ', response.error);
+    } else {
+      const selectedImages = response.assets;
+      setImages(selectedImages);
+    }
+  });
+};
 
 
 
 
 // Add Advertisement to the database
   const addAdvertisement = async () => {
-    try {
-      await firebase.firestore().collection('advertisements').add({
-        ownerEmail: email,
-        title: title,
-        description: description,
-        otherCategory: category === 'Other' ? otherCategory : category,
-        category : category,
-        ageYear: ageYear,
-        ageMonth: ageMonth,
-        gender : selectedGen,
-        bread: bread,
-        vaccination: vaccination,
-        health: health,
-        purpose: selectedPur,
-        district: district,
-        province: province,
-        contactNumber: contact,
-        price: price,
+      if (title === '' && category === '' &&   district === '' && province === ''  && images.length === 0) {
+        Alert.alert('Please fill in the required fields');
+        return;
+
+      }
+
+      try {
+      
+        const names = []; // Array to store image names
+        setModalVisible(true);
+      for (let i = 0; i < images.length; i++) {
+        const uri = images[i].uri;
+        const fileName = uri.substring(uri.lastIndexOf('/') + 1);
+        const reference = storage().ref(`adAdvertisements/${fileName}`);
+  
+        try {
+          // Upload image to Firebase Storage
+          await reference.putFile(uri);
+          console.log(`Image ${i + 1} uploaded successfully!`);
         
+
+           // Get download URL of the uploaded image
+          const url = await reference.getDownloadURL();
+          console.log(`Download URL for image ${i + 1}:`, url);
+  
         
-      }).then(() => {
-        console.log('Document successfully written!');
-        Alert.alert('Successfully Added');
-      })
-    }catch (error) {
-      console.error('Error adding document: ', error);
-    }
+          setUploadingValue((i + 1) * 20);
+
+          names.push(fileName); 
+        
+        } catch (error) {
+          console.error(`Error uploading image ${i + 1}:`, error);
+          Alert.alert('Error', 'Failed to upload images');
+          setIsLoading(false);
+        }
+      }
+  
+  
+  
+        await firebase.firestore().collection('advertisements').add({
+          ownerEmail: email,
+          title: title,
+          description: description,
+          otherCategory: category === 'Other' ? otherCategory : category,
+          category : category,
+          ageYear: ageYear,
+          ageMonth: ageMonth,
+          gender : selectedGen,
+          bread: bread,
+          vaccination: vaccination,
+          health: health,
+          purpose: selectedPur,
+          district: district,
+          province: province,
+          contactNumber: contact,
+          price: price,
+          images: names,
+          mainImage: names[selectedImageIndex]
+          
+          
+        }).then(() => {
+          console.log('Document successfully written!');
+          setModalVisible(false);
+  
+          setTitle('');
+          setPrice(0);
+          setContact(0);
+          setHealth('');
+          setVaccination('');
+          setBread('');
+          setAgeMonth('');
+          setAgeYear('');
+          setDescription('');
+          setImages([]);
+          setCategory('');
+          setDistrict('');
+          setProvince('');
+          setOtherCategory('');
+          
+          navigation.navigate('Home');
+          Alert.alert('Successfully Added');
+        })
+      }catch (error) {
+        console.error('Error adding document: ', error);
+      }
   };
 
 
@@ -159,7 +256,27 @@ const priceHandler = (inputText) => {
     <KeyBoardAvoiding>
       <SafeAreaView>
         <StatusBar hidden = {false}/>
+          <Modal
+          animationType="fade"
+          transparent={true}
+          visible={modalVisible}
+          onRequestClose={() => {
+            Alert.alert('Modal has been closed.');
+          }}
+        >
+          
+          <View style={{flex: 1, justifyContent: 'center', alignItems: 'center',backgroundColor : 'rgba(0,0,0,0.4)'}}>
+              <LottieView
+                source={require("../../assets/Images/Animated/catLoading.json")}
+                style={{ width: 80, height: 80 }}
+                autoPlay
+                loop
+              />
+              <Text style={{color: '#fff', marginTop: 10}}>{`Uploading Images.....${uploadingValue}%`}</Text>
+        </View>
+        </Modal>
         <ScrollView contentContainerStyle = {styles.scrollStyles}>
+          
           <Text style = {styles.headingStyles}>Pet Advertisement</Text>
           <View style= {styles.viewColSpacing}>
             {/* title */}
@@ -361,9 +478,52 @@ const priceHandler = (inputText) => {
           {/*Add Images*/}
           <Text style = {styles.headingStyles}>Images</Text>
           <View style = {styles.viewColSpacing}>
-            <Text style = {{color: 'black',}}>
-              You can add upto 5 images of your pet.
-            </Text>
+            <View style = {{paddingTop : 10, width : '100%',height : 'auto',backgroundColor : '#D0DEEE',borderRadius : 10,alignItems : 'center'}}>
+                  <Text style = {{color: 'black',}}>You can pick one image for a main image. </Text>
+                  <View style = {{ width : '90%',height : 'auto',flexWrap : 'wrap',flexDirection : 'row',justifyContent : 'center',paddingVertical : 20}}>
+                    
+                  {images.map((image, index) => (
+                    <View key={index} style={{ width: SmallTextWidth + 80, height: SmallTextWidth + 80, margin: 7 }}>
+                      {index === selectedImageIndex && (
+                        <View style={{ backgroundColor: 'rgba(0, 0, 0, 0.45)', width: '100%', height: '100%', position: 'absolute', zIndex: 1, justifyContent: 'center', alignItems: 'center',borderRadius: 8 }}>
+                          <MaterialIcons name="done-outline" size={35} style={{ color: '#fff' }} />
+                        </View>
+                      )}
+                      <TouchableOpacity onPress={() => setSelectedImageIndex(index)}>
+                        <Image
+                          source={{ uri: image.uri }}
+                          style={{ width: '100%', height: '100%', borderRadius: 8 }}
+                        />
+                      </TouchableOpacity>
+                    </View>
+                  ))}
+
+
+                      {
+                        images.length < 5  ? (
+                          <TouchableOpacity onPress={selectImages} style = {{margin : 7,borderWidth : 1,borderColor : '#345C8C',width: SmallTextWidth + 80, height: SmallTextWidth + 80,justifyContent : 'center', alignItems : 'center',borderRadius : 10}}>
+                            <Entypo name="plus" size={35} style = {{color : '#345C8C',}} />
+                          </TouchableOpacity>
+                        ) : (
+                          null
+                        )
+                      }
+                      
+                      
+
+                  </View>
+                    {
+                      images.length > 0 ? (
+                        <TouchableOpacity onPress={() => setImages([])} style = {{backgroundColor :'#345C8C' ,borderColor : '#345C8C',width : '60%',height : 35,justifyContent : 'center', alignItems : 'center',borderRadius : 20,marginVertical : 10}}>
+                          <Text style = {{color : 'white'}}>Clear All</Text>
+                        </TouchableOpacity>
+                      ) : (
+                        null
+                      )
+                    }
+                
+              
+            </View>
             {/* Divider */}
           <View style = {{
               marginVertical: 10,
@@ -404,7 +564,8 @@ const styles = StyleSheet.create({
     height: 'auto',
     flexDirection: 'column',
     justifyContent: 'center',
-    alignItems: 'flex-start'
+    alignItems: 'flex-start',
+
   },
 
   viewRowSpacing: {
