@@ -28,4 +28,10 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         elevation : 8
       },
+
+      pressStyles: {
+        
+      }
+
+      
 })

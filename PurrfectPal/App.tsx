@@ -10,8 +10,10 @@ import ScreenTwo from './src/screens/ScreenTwo';
 import ScreenThree from './src/screens/ScreenThree';
 import GetStarted from './src/screens/GetStarted';
 import Tabs from './navigation/Tabs';
-import Create from './src/screens/Create'
 import SplashScreen from './src/screens/SplashScreen';
+import ViewProfile from './src/screens/ViewProfile';
+import AboutUs from './src/screens/AboutUs'
+import EditProfile from './src/screens/EditProfile';
 
 const Stack = createNativeStackNavigator();
 
@@ -69,6 +71,21 @@ const App = () => {
         <Stack.Screen
           name="Dashboard"
           component={Tabs}
+          options={{headerShown: false}}
+        />
+        <Stack.Screen
+          name = "ViewProfile"
+          component={ViewProfile}
+          options={{headerShown: false}}
+        />
+        <Stack.Screen
+          name = "AboutUs"
+          component={AboutUs}
+          options={{headerShown: false}}
+        />
+        <Stack.Screen
+          name = "EditProfile"
+          component={EditProfile}
           options={{headerShown: false}}
         />
       </Stack.Navigator>

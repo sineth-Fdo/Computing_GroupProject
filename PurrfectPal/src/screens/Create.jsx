@@ -12,11 +12,9 @@ import { firebase } from '@react-native-firebase/firestore';
 import storage from '@react-native-firebase/storage';
 
 
-
-const Create = (props) => {
-
-  const { email } = props.route.params;
-
+const Create = () => {
+  const [selected, setSelected] = useState();
+  const [myValue, setMyValue]  = useState();
   const [selectedGen, setSelectedGen] = useState('male');
   const [selectedPur, setSelectedPur] = useState('adpot');
   const [selectedLoc, setSelectedLoc] = useState('default');

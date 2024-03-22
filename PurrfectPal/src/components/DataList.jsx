@@ -47,13 +47,13 @@ export const Districts = [
 
 
 export const Provinces = [
-    "Central Province",
-    "Eastern Province",
-    "North Central Province",
-    "Northern Province",
-    "North Western Province",
-    "Sabaragamuwa Province",
-    "Southern Province",
-    "Uva Province",
-    "Western Province"
+    "Central ",
+    "Eastern ",
+    "North Central ",
+    "Northern ",
+    "North Western ",
+    "Sabaragamuwa ",
+    "Southern ",
+    "Uva ",
+    "Western "
 ];

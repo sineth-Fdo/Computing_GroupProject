@@ -2,7 +2,7 @@ import { StyleSheet, Text, View, TextInput } from 'react-native'
 import React from 'react'
 
 const TextBox = (props) => {
-    const { TextName, onChangeText, value, placeholder, secureTextEntry } = props;
+    const { TextName, onChangeText, value, placeholder, secureTextEntry, defText } = props;
 
     return (
         <View style = {{width: '100%',height: 'auto'}}>
@@ -13,6 +13,7 @@ const TextBox = (props) => {
                     placeholder={placeholder}
                     placeholderTextColor={'rgba(0,0,0,0.4)'}
                     secureTextEntry={secureTextEntry}
+                    defaultValue={defText}
                     multiline
                 />
         </View>

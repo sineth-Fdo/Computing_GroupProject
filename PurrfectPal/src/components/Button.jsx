@@ -5,6 +5,7 @@ const Button = (props) => {
     const {onPress} = props;
 
     const btnstyle = {
+        marginVertical: props.mTop,
         backgroundColor: props.bgcolor,
         width: '90%',
         height: 50,
