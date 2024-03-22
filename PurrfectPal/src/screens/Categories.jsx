@@ -11,7 +11,7 @@ const Categories = () => {
         <ScrollView contentContainerStyle={styles.scrollViewContent}>
       <View style = {styles.searchView}>
         <Text style= {styles.ViewHeaders}>Search</Text>
-        <SearchBox placeholder = 'Search Anything ...'/>
+        <SearchBox placeholder = 'Search Anything ...' width= "100%" bgColor = "#D0DEEE"/>
       </View>
       <View style = {styles.CategoriesView}>
         <Text style= {styles.ViewHeaders}>Pet Categories</Text>

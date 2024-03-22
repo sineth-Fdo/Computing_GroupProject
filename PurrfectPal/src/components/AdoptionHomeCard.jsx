@@ -22,10 +22,8 @@ const AdoptionHomeCard = (props) => {
                         <AdoptionCard BigTitle = {BigTitle}/>
                         <AdoptionCard />
                         <AdoptionCard />
-
                     
                 
-
                     </ScrollView>
                 </View>
             </View> 
