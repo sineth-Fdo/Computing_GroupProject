@@ -13,7 +13,6 @@ import LottieView from "lottie-react-native";
 const Home = (props) => {
 
   const { email } = props.route.params;
-
   
 
   const [user, setUser] = useState(null);
@@ -24,7 +23,7 @@ const Home = (props) => {
         .collection('users')
         .where('email', '==', email)
         .get();
-
+        
       if (userSnapshot.docs.length > 0) {
         const userData = userSnapshot.docs[0].data();
         setUser(userData);
@@ -38,7 +37,7 @@ const Home = (props) => {
 
   useEffect(() => {
     getUserData();
-  }, [])
+  },[])
 
   if (!user) {
     return (

@@ -22,11 +22,6 @@ const App = () => {
     <NavigationContainer>
       <Stack.Navigator>
 
-      {/* <Stack.Screen
-          name="Create"
-          component={Create}
-          options={{headerShown: false}}
-        /> */}
         <Stack.Screen
           name="Splash"
           component={SplashScreen}

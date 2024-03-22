@@ -42,9 +42,10 @@ const Register = () => {
       Alert.alert('Please fill in the required fields');
       return;
     }else {
-      storeData(email);
+      
       auth()
       .createUserWithEmailAndPassword(email, password).then(() => {
+        storeData(email);
         navigation.navigate('UserDetailsRegister',{email : email});
       })
       .catch (error => {
