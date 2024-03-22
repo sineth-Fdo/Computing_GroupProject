@@ -75,12 +75,13 @@ const Register = () => {
           <LoginTextBox
               TextName="Email Address"
               onChangeText={handleEmailChange}
-              secureTextEntry = {false} value={email} />
+              secureTextEntry = {false}
+              value={email} />
 
           <LoginTextBox
               TextName="Password"
               onChangeText={handlePasswordChange}
-              secureTextEntry = {true} value={password}
+              value={password}
               placeholder = "Must Be 6 Characters Long Or More" />
               
 
