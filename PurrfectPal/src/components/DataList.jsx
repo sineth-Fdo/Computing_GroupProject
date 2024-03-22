@@ -57,3 +57,15 @@ export const Provinces = [
     "Uva ",
     "Western "
 ];
+
+export const Genders = [
+    "Male",
+    "Female"
+];
+
+export const PriceList = [
+    "Adoption",
+    "< Rs. 50,000",
+    "Rs. 50,000 - Rs. 100,000",
+    "> Rs. 100,000"
+];
