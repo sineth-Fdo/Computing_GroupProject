@@ -32,7 +32,7 @@ const Categories = () => {
           <CategoryBtn icon= {require('../../assets/Images/petIcons/snake.png')} cateName= 'Reptiles' />
           <CategoryBtn icon= {require('../../assets/Images/petIcons/insects.png')} cateName= 'Insects' />
           <CategoryBtn icon= {require('../../assets/Images/petIcons/amphibians.png')} cateName= 'Amphibians' />
-          <CategoryBtn cateName= 'Others' />
+          <CategoryBtn icon= {require('../../assets/Images/petIcons/more.png')} cateName= 'Others' imgResize = "0"/>
         </View>
       </View>
     </ScrollView>
@@ -65,7 +65,7 @@ const styles = StyleSheet.create({
   categoryContainer: {
     flexDirection: 'row',
     flexWrap: 'wrap',
-    justifyContent: 'flex-start',
+    justifyContent: 'center',
     alignItems: 'center',
     marginHorizontal: 'auto',
     paddingBottom: 100,

@@ -1,23 +1,77 @@
 // LoginTextBox.js
-import React from 'react';
-import { StyleSheet, Text, TextInput, View } from 'react-native';
+import {useState} from 'react';
+import { StyleSheet, Text, TextInput, View, TouchableOpacity } from 'react-native';
 import { SmallTextWidth, width } from '../global/Dimensions';
+import Ionicons from 'react-native-vector-icons/dist/Ionicons';
 
 const LoginTextBox = (props) => {
     const { TextName, onChangeText, value, placeholder, secureTextEntry } = props;
+    const [icon, setIcon] = useState("eye-off");
+
 
     return (
         <View>
             <Text style={{ color: '#000', fontSize: SmallTextWidth, fontFamily: 'Poppins-SemiBold' }}>{TextName}</Text>
-            <TextInput
-                style={styles.input}
-                onChangeText={onChangeText}
-                value={value}
-                placeholder={placeholder}
-                placeholderTextColor={'#666666'}
-                secureTextEntry={secureTextEntry}
-                placeholderStyle={{ color: '#666666', fontFamily: 'Poppins-Italic'}}
-            />
+            
+
+            {
+                secureTextEntry === false ? (
+                    <>
+                        <TextInput
+                            style={styles.input}
+                            onChangeText={onChangeText}
+                            value={value}
+                            placeholder={placeholder}
+                            placeholderTextColor={'#666666'}
+                            secureTextEntry={secureTextEntry}
+                            placeholderStyle={{ color: '#666666', fontFamily: 'Poppins-Italic'}}
+                        />
+                    </>
+                ) : (
+                    <>
+                        <TextInput
+                            style={styles.input}
+                            onChangeText={onChangeText}
+                            value={value}
+                            placeholder={placeholder}
+                            placeholderTextColor={'#666666'}
+                            secureTextEntry={icon == "eye-off" ? true : false}
+                            placeholderStyle={{ color: '#666666', fontFamily: 'Poppins-Italic'}}
+                        />
+                    </>
+                )
+            }
+
+
+
+
+            {
+                TextName === "Password" ? (
+                    <>
+                        <Ionicons
+                            name = {icon}
+                            size={20}
+                            style = {{
+                                color : '#000',
+                                position : 'absolute',
+                                top: 32,
+                                bottom : 0,
+                                right: 15,
+                            }}
+                            onPress = {() => {
+                                if(icon == "eye-off"){
+                                    setIcon("eye")
+                                }
+                                else if (icon == "eye"){
+                                    setIcon("eye-off")
+                                }
+                            }}
+                        />
+                    </>
+                ) : null
+            }
+
+            
             
         </View>
     );

@@ -9,6 +9,7 @@ import KeyBoardAvoiding from '../global/KeyBoardAvoiding';
 import auth from '@react-native-firebase/auth';
 import { GoogleSignin } from '@react-native-google-signin/google-signin';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import Ionicons from 'react-native-vector-icons/dist/Ionicons';
 
 
 
@@ -128,7 +129,7 @@ const Login = () => {
               TextName = "Password"
               onChangeText={handlePasswordChange}
               value={password}
-              secureTextEntry = {true}
+              
               />
     
 
