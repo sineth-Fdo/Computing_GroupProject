@@ -27,14 +27,14 @@ const Create = (props) => {
   const navigation = useNavigation();
 
   const [selectedGen, setSelectedGen] = useState('male');
-  const [selectedPur, setSelectedPur] = useState('adpot');
+  const [selectedPur, setSelectedPur] = useState('adopt');
   const [selectedLoc, setSelectedLoc] = useState('default');
   const [images, setImages] = useState([]);
   const [selectedImageIndex, setSelectedImageIndex] = useState(0);
   
-  const [category, setCategory]  = useState();
-  const [district, setDistrict]  = useState();
-  const [province, setProvince ]  = useState();
+  const [category, setCategory]  = useState(null);
+  const [district, setDistrict]  = useState(null);
+  const [province, setProvince ]  = useState(null);
 
   const [title , setTitle] = useState('');
   const [description , setDescription] = useState('');
@@ -49,6 +49,7 @@ const Create = (props) => {
   
   const [modalVisible, setModalVisible] = useState(false);
   const [uploadingValue, setUploadingValue] = useState(0);
+
 
 
 
@@ -67,7 +68,7 @@ const Create = (props) => {
 
                 const purposeButtons = useMemo(() => ([
                   {
-                      id: 'adpot',
+                      id: 'adopt',
                       label: 'For Adoption',
                       value: 'for adoption'
                   },
@@ -163,55 +164,50 @@ const selectImages = () => {
 
 
 // Add Advertisement to the database
-  const addAdvertisement = async () => {
-      if (title === '' && category === '' &&   district === '' && province === ''  && images.length === 0) {
-        Alert.alert('Please fill in the required fields');
-        return;
+const addAdvertisement = async () => {
+  if (title === '' && category === '' && district === '' && province === '' && images.length === 0) {
+      Alert.alert('Please fill in the required fields');
+      return;
+  }
 
-      }
+  try {
 
-      try {
-      
-        const names = []; // Array to store image names
-        setModalVisible(true);
+      const names = []; // Array to store image names
+      setModalVisible(true);
       for (let i = 0; i < images.length; i++) {
-        const uri = images[i].uri;
-        const fileName = uri.substring(uri.lastIndexOf('/') + 1);
-        const reference = storage().ref(`adAdvertisements/${fileName}`);
-  
-        try {
-          // Upload image to Firebase Storage
-          await reference.putFile(uri);
-          console.log(`Image ${i + 1} uploaded successfully!`);
-        
+          const uri = images[i].uri;
+          const fileName = uri.substring(uri.lastIndexOf('/') + 1);
+          const reference = storage().ref(`adAdvertisements/${fileName}`);
 
-           // Get download URL of the uploaded image
-          const url = await reference.getDownloadURL();
-          console.log(`Download URL for image ${i + 1}:`, url);
-  
-        
-          setUploadingValue((i + 1) * 20);
+          try {
+              // Upload image to Firebase Storage
+              await reference.putFile(uri);
+              console.log(`Image ${i + 1} uploaded successfully!`);
 
-          names.push(fileName); 
-        
-        } catch (error) {
-          console.error(`Error uploading image ${i + 1}:`, error);
-          Alert.alert('Error', 'Failed to upload images');
-          setIsLoading(false);
-        }
+              // Get download URL of the uploaded image
+              const url = await reference.getDownloadURL();
+              console.log(`Download URL for image ${i + 1}:`, url);
+
+              setUploadingValue((i + 1) * 20);
+
+              names.push(fileName);
+
+          } catch (error) {
+              console.error(`Error uploading image ${i + 1}:`, error);
+              Alert.alert('Error', 'Failed to upload images');
+              setIsLoading(false);
+          }
       }
-  
-  
-  
-        await firebase.firestore().collection('advertisements').add({
+
+      await firebase.firestore().collection('advertisements').add({
           ownerEmail: email,
           title: title,
           description: description,
           otherCategory: category === 'Other' ? otherCategory : category,
-          category : category,
+          category: category,
           ageYear: ageYear,
           ageMonth: ageMonth,
-          gender : selectedGen,
+          gender: selectedGen,
           bread: bread,
           vaccination: vaccination,
           health: health,
@@ -221,35 +217,38 @@ const selectImages = () => {
           contactNumber: contact,
           price: price,
           images: names,
-          mainImage: names[selectedImageIndex]
-          
-          
-        }).then(() => {
+          mainImage: names[selectedImageIndex],
+          Date: new Date().toLocaleString()
+
+
+      }).then(() => {
           console.log('Document successfully written!');
           setModalVisible(false);
-  
+
+          // Reset all state variables to their default values
           setTitle('');
-          setPrice(0);
-          setContact(0);
-          setHealth('');
-          setVaccination('');
-          setBread('');
-          setAgeMonth('');
-          setAgeYear('');
-          setDescription('');
-          setImages([]);
-          setCategory('');
-          setDistrict('');
-          setProvince('');
-          setOtherCategory('');
-          
+              setPrice('');
+              setContact('');
+              setHealth('');
+              setBread('');
+              setAgeMonth('');
+              setAgeYear('');
+              setDescription('');
+              setImages([]);
+              setCategory('');
+              setDistrict('');
+              setProvince('');
+              setOtherCategory('');
+              setVaccination('');
+
           navigation.navigate('Home');
           Alert.alert('Successfully Added');
-        })
-      }catch (error) {
-        console.error('Error adding document: ', error);
-      }
-  };
+      })
+  } catch (error) {
+      console.error('Error adding document: ', error);
+  }
+};
+
 
 
   return (
@@ -278,13 +277,14 @@ const selectImages = () => {
         <ScrollView contentContainerStyle = {styles.scrollStyles}>
           
           <Text style = {styles.headingStyles}>Pet Advertisement</Text>
+  
           <View style= {styles.viewColSpacing}>
             {/* title */}
             <Text style = {styles.formHeaders}>Title *</Text>
-            <TextBox placeholder = 'Enter your title' onChangeText = {titleHandler} />
+            <TextBox placeholder = 'Enter your title' onChangeText = {titleHandler} value = {title}/>
             {/* Description */}
             <Text style = {styles.formHeaders}>Description</Text>
-            <MultilineTxtBox placeholder = 'Tell them about your pet' onChangeText = {descriptionHandler}/>
+            <MultilineTxtBox placeholder = 'Tell them about your pet' onChangeText = {descriptionHandler} value = {description}/>
             {/* Category Selector */}
             <Text style = {styles.formHeaders}>Pet Category *</Text>
             <SelectDropdown
@@ -313,7 +313,7 @@ const selectImages = () => {
                 <>
                   {/* other category */}
                   <Text style = {styles.formHeaders}>new Category</Text>
-                  <TextBox placeholder = 'Enter New category Here'  onChangeText = {otherCategoryHandler}/>
+                  <TextBox placeholder = 'Enter New category Here'  onChangeText = {otherCategoryHandler} value = {otherCategory}/>
                 </>
               ) : (
                 null
@@ -351,13 +351,13 @@ const selectImages = () => {
         
             {/* Breed */}
             <Text style = {styles.formHeaders}>Pet Breed</Text>
-            <TextBox placeholder = 'Enter Pet Breed'  onChangeText = {breadHandler}/>
+            <TextBox placeholder = 'Enter Pet Breed'  onChangeText = {breadHandler} value = {bread}/>
             {/* Vaccination */}
             <Text style = {styles.formHeaders}>Vaccination Status</Text>
-            <MultilineTxtBox  onChangeText = {vaccinationHandler}/>
+            <MultilineTxtBox  onChangeText = {vaccinationHandler} value = {vaccination}/>
             {/* health status */}
             <Text style = {styles.formHeaders}>Pet's Health Status</Text>
-            <MultilineTxtBox  onChangeText = {HealthHandler}/>
+            <MultilineTxtBox  onChangeText = {HealthHandler} value = {health}/>
             {/* Divider */}
             <View style = {{
               marginVertical: 10,
@@ -382,7 +382,7 @@ const selectImages = () => {
           { selectedPur === 'sale' ? (
             <>
                 <Text style = {styles.formHeaders}>Price</Text>
-                <TextBox placeholder = 'LKR' onChangeText = {priceHandler} keyboardType='numeric'/>
+                <TextBox placeholder = 'LKR' onChangeText = {priceHandler} keyboardType='numeric' value = {price}/>
             </>
           ) : (null)}
         
@@ -412,7 +412,7 @@ const selectImages = () => {
               <>
                   {/* Address */}
                 <Text style = {styles.formHeaders}>Address</Text>
-                <MultilineTxtBox placeholder = 'Enter your Custom Address'/>
+                <MultilineTxtBox placeholder = 'Enter your Custom Address'value/>
               </>
             ) : (
               null
@@ -536,7 +536,7 @@ const selectImages = () => {
           <Text style = {styles.headingStyles}>Contact Information</Text>
           <View style = {styles.viewColSpacing}>
             <Text style = {styles.formHeaders}>Contact Number *</Text>
-            <TextBox placeholder = 'Enter a Contact Number'  onChangeText = {ContactHandler} keyboardType = {'numeric'}/>
+            <TextBox placeholder = 'Enter a Contact Number'  onChangeText = {ContactHandler} keyboardType = {'numeric'} value = {contact}/>
         
           </View>
         

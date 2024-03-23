@@ -69,3 +69,8 @@ export const PriceList = [
     "Rs. 50,000 - Rs. 100,000",
     "> Rs. 100,000"
 ];
+
+export const Purpose = [
+    "adopt",
+    "sale",
+];

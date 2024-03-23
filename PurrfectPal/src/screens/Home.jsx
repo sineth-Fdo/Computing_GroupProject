@@ -1,7 +1,7 @@
 import { Image, StyleSheet, Text, View, SafeAreaView,ScrollView, TouchableOpacity } from 'react-native'
 import React, { useEffect, useState } from 'react'
-import firestore from '@react-native-firebase/firestore';
-import { useRoute } from '@react-navigation/native';
+import { firebase } from '@react-native-firebase/firestore';
+import { NavigationContainer, useNavigation, useRoute } from '@react-navigation/native';
 import CategoryBtn from '../components/CategoryBtn';
 import { SmallTextWidth, height, width } from '../global/Dimensions';
 import AdoptionHomeCard from '../components/AdoptionHomeCard';
@@ -13,13 +13,22 @@ import LottieView from "lottie-react-native";
 const Home = (props) => {
 
   const { email } = props.route.params;
+  const navigation = useNavigation();
   
 
   const [user, setUser] = useState(null);
 
+
+  navigation.addListener('focus', () => {
+    getUserData();
+  
+  });
+  
+
+
   const getUserData = async () => {
     try {
-      const userSnapshot = await firestore()
+      const userSnapshot = await firebase.firestore()
         .collection('users')
         .where('email', '==', email)
         .get();
@@ -33,10 +42,16 @@ const Home = (props) => {
     } catch (error) {
       console.error('Error fetching user data:', error);
     }
-  }
+  };
+
+
+
+
+
 
   useEffect(() => {
     getUserData();
+  
   },[])
 
   if (!user) {
@@ -96,10 +111,10 @@ const Home = (props) => {
         
         
         {/* Cards View */}
-
+          
         
-            <AdoptionHomeCard BigTitle = "For Adoption" />
-            <AdoptionHomeCard  BigTitle = "For Sale"/>
+            <AdoptionHomeCard BigTitle = "For Adoption" email = {email} purpose = "adopt"  />
+            <AdoptionHomeCard  BigTitle = "For Sale" email = {email} purpose = "sale" />
       
         
         {/* Cards View End */}

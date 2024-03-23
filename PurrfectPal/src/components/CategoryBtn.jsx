@@ -4,12 +4,14 @@ import { TouchableOpacity, Text, Image } from 'react-native';
 
 
 const CategoryBtn = (props) => {
-    const { icon, cateName, fsize, imgResize, mb,  } = props;
+    const { icon, cateName, fsize, imgResize, mb, onPress  } = props;
 
-    const navigation = useNavigation();
+
 
     return (
-        <TouchableOpacity style={{backgroundColor: '#D0DEEE',margin: 10 ,width: 100, height: 100, justifyContent: 'center', alignItems: 'center', borderRadius: 100 }} onPress={() => {navigation.navigate('')}}>
+        <TouchableOpacity 
+            style={{backgroundColor: '#D0DEEE',margin: 10 ,width: 100, height: 100, justifyContent: 'center', alignItems: 'center', borderRadius: 100 }} 
+            onPress={onPress}>
             <Image
                 source={icon}
                 style = {{

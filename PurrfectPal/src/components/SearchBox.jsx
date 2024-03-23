@@ -1,7 +1,7 @@
 import {StyleSheet, TextInput} from 'react-native'
 
 const SearchBox = (props) =>{
-const {placeholder, width, bgColor }  = props;
+const {placeholder, width, bgColor, onChangeText, value }  = props;
 
     const styles = {
             height: 50,
@@ -15,8 +15,10 @@ const {placeholder, width, bgColor }  = props;
 
     return(
         <TextInput style= {styles} 
-        placeholder={placeholder} 
-        placeholderTextColor = "rgba(0,0,0,0.7)"
+            placeholder={placeholder} 
+            placeholderTextColor = "rgba(0,0,0,0.7)"
+            value={value}
+            onChangeText={onChangeText}
         />
     )
 }

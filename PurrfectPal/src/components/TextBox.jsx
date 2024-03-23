@@ -5,7 +5,7 @@ const TextBox = (props) => {
     const { TextName, onChangeText, value, placeholder, secureTextEntry, defText, keyboardType} = props;
 
     return (
-        <View style = {{width: '90%',height: 'auto'}}>
+        <View style = {{width: '100%',height: 'auto'}}>
         <TextInput
                     style={styles.input}
                     onChangeText={onChangeText}
@@ -15,6 +15,7 @@ const TextBox = (props) => {
                     keyboardType={keyboardType}
                     secureTextEntry={secureTextEntry}
                     defaultValue={defText}
+                    maxLength={30}
                 />
         </View>
     )

@@ -73,16 +73,7 @@ const LoginTextBox = (props) => {
             }
 
             
-            <TextInput
-                style={styles.input}
-                onChangeText={onChangeText}
-                value={value}
-                placeholder={placeholder}
-                placeholderTextColor={'#666666'}
-                secureTextEntry={secureTextEntry}
-                placeholderStyle={{ color: '#666666', fontFamily: 'Poppins-Italic'}}
-                keyboardType= {keyboardType}
-            />
+    
             
         </View>
     );

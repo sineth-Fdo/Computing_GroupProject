@@ -16,6 +16,11 @@ const ViewProfile = () => {
     const [user, setUser] = useState(null);
 
 
+    navigation.addListener('focus', () => {
+        getUserData();
+    });
+
+
 
         const getUserData = async () => {
             try {
@@ -50,7 +55,7 @@ const ViewProfile = () => {
                 </View>
                 <View style = {styles.imageView}>
                 <Image
-                    source={require('../../assets/Images/user-default.jpg')}
+                    source={{ uri: `https://firebasestorage.googleapis.com/v0/b/purfectpal-b93c7.appspot.com/o/users%2F${user.profilePic}?alt=media&token=d33b3e86-8008-49dd-9734-36f5405d44b9` }}
                     style = {styles.imageStyles}
                 />
                 </View>
@@ -68,7 +73,7 @@ const ViewProfile = () => {
                         <Text style = {styles.dataHead}>Address</Text>
                         <Text style = {styles.data}>{user.address}</Text>
                         <Text style = {styles.dataHead}>Location</Text>
-                        <Text style = {styles.data}>{user.district == '' || user.province == '' ? 'not set' : `${user.district} ${user.province}` }</Text>
+                        <Text style = {styles.data}>{user.district == '' || user.province == '' ? 'not set' : `${user.district} District, ${user.province} Province` }</Text>
                     </View>
                     <View style = {styles.buttonView}>
                         <ProfileButtons height = {45} width = "90%" onPress = {() => navigation.navigate('EditProfile',{email: email})} btnText = 'Edit Profile' bgColor = "rgba(255,163,75,0.7)" boColor = "#345C8C"/>
