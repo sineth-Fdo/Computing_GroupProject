@@ -7,10 +7,11 @@ import MaterialIcons from 'react-native-vector-icons/dist/MaterialIcons';
 import GoogleBtn from '../components/GoogleBtn';
 import LoginSubmitBtn from '../components/LoginSubmitBtn';
 import LoginTextBox from '../components/LoginTextBox';
-import { bigTextWidth, height, width } from '../global/Dimensions';
+import { bigTextWidth, height, width, SmallTextWidth } from '../global/Dimensions';
 import KeyBoardAvoiding from '../global/KeyBoardAvoiding';
 import storage from '@react-native-firebase/storage';
 import LottieView from "lottie-react-native";
+import TextBox from '../components/TextBox';
 
 
 const UserDetailsRegister = () => {
@@ -22,6 +23,8 @@ const UserDetailsRegister = () => {
 
     const [name, setName] = useState('');
     const [userName, setUserName] = useState('');
+    const [userMobile, setUserMobile] = useState(0);
+    const [userAddress, setUserAddress] = useState('');
     const [selectImage, setSelectImage] = useState('');
     const [isModalVisible, setIsModalVisible] = useState(false);
 
@@ -37,6 +40,17 @@ const UserDetailsRegister = () => {
     const handleUserNameChange = (inputText) => {
       setUserName(inputText);
     };
+
+    const handleMobileChange = (inputText) => {
+      const newMobile =  parseInt(inputText)
+      setUserMobile(newMobile);
+    };
+
+    const handleAddressChange = (inputText) => {
+      setUserAddress(inputText);
+    };
+
+
 
         // Modal Handlers
         const showModal = () => {
@@ -68,6 +82,10 @@ const UserDetailsRegister = () => {
                   name: "User",
                   userName: "New_User",
                   email: email,
+                  mobileNumber : 0,
+                  address : 'not set',
+                  district : '',
+                  province : '',
                   profilePic : filename
               }).then(() => {
                   setName('');
@@ -81,7 +99,7 @@ const UserDetailsRegister = () => {
           setTimeout(() => {
               
               hideModal();
-              navigation.navigate('Dashboard', { email: email });
+              navigation.navigate('Dashboard', {email : email});
           }, 2000);
       };
 
@@ -115,7 +133,7 @@ const UserDetailsRegister = () => {
 
     // Add The new user to the database
     const AddNewUser = async () => {
-      if (!name || !userName) {
+      if (!name || !userName || !userMobile || !userAddress) {
         Alert.alert('Please fill in the required fields');
         return;
       }else {
@@ -137,6 +155,10 @@ const UserDetailsRegister = () => {
                     name: name,
                     userName: userName,
                     email: email,
+                    mobileNumber : userMobile,
+                    address : userAddress,
+                    district : '',
+                    province : '',
                     profilePic : filename
 
                 }).then(async () => {
@@ -153,7 +175,7 @@ const UserDetailsRegister = () => {
                 setTimeout(() => {
               
                   hideModal();
-                  navigation.navigate('Dashboard', { email: email });
+                  navigation.navigate('Dashboard', {email : email});
               }, 2000);
             }
     };
@@ -215,6 +237,20 @@ const UserDetailsRegister = () => {
               onChangeText={handleUserNameChange}
               secureTextEntry = {false} value={userName}
               />
+          <LoginTextBox
+              TextName="Mobile Number"
+              onChangeText={handleMobileChange}
+              secureTextEntry = {false} value={userMobile}
+              keyboardType = 'numeric'
+              />
+
+          <LoginTextBox
+              TextName="Address"
+              onChangeText={handleAddressChange}
+              secureTextEntry = {false} value={userAddress} 
+              />
+
+              
 
           <View>
             <LoginSubmitBtn TextName="Submit" onPress = {AddNewUser}/>

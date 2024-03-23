@@ -15,6 +15,7 @@ const TextBox = (props) => {
                     keyboardType={keyboardType}
                     secureTextEntry={secureTextEntry}
                     defaultValue={defText}
+                    maxLength={30}
                 />
         </View>
     )

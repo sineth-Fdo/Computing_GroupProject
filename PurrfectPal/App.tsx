@@ -22,11 +22,7 @@ const App = () => {
   return (
     <NavigationContainer>
       <Stack.Navigator>
-        <Stack.Screen
-          name = "ResultsPage"
-          component={ResultsPage}
-          options={{headerShown: false}}
-        />
+  
         <Stack.Screen
           name="Splash"
           component={SplashScreen}
@@ -71,6 +67,11 @@ const App = () => {
         <Stack.Screen
           name="Dashboard"
           component={Tabs}
+          options={{headerShown: false}}
+        />
+        <Stack.Screen
+          name = "ResultsPage"
+          component={ResultsPage}
           options={{headerShown: false}}
         />
         <Stack.Screen

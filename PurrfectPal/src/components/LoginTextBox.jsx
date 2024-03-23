@@ -5,9 +5,10 @@ import { SmallTextWidth, width } from '../global/Dimensions';
 import Ionicons from 'react-native-vector-icons/dist/Ionicons';
 
 const LoginTextBox = (props) => {
-    const { TextName, onChangeText, value, placeholder, secureTextEntry } = props;
+
     const [icon, setIcon] = useState("eye-off");
 
+    const { TextName, onChangeText, value, placeholder, secureTextEntry, keyboardType } = props;
 
     return (
         <View>
@@ -72,6 +73,7 @@ const LoginTextBox = (props) => {
             }
 
             
+    
             
         </View>
     );

@@ -42,9 +42,10 @@ const Register = () => {
       Alert.alert('Please fill in the required fields');
       return;
     }else {
-      storeData(email);
+      
       auth()
       .createUserWithEmailAndPassword(email, password).then(() => {
+        storeData(email);
         navigation.navigate('UserDetailsRegister',{email : email});
       })
       .catch (error => {
@@ -77,12 +78,15 @@ const Register = () => {
               onChangeText={handleEmailChange}
               secureTextEntry = {false}
               value={email} />
+              
 
           <LoginTextBox
               TextName="Password"
               onChangeText={handlePasswordChange}
               value={password}
-              placeholder = "Must Be 6 Characters Long Or More" />
+              placeholder = "Must Be 6 Characters Long Or More" 
+              
+              />
               
 
           <View>

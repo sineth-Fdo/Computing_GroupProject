@@ -1,47 +1,89 @@
 import { StyleSheet, Text, View, SafeAreaView,Image, ScrollView, StatusBar} from 'react-native'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import BackButton from '../components/BackButton'
-import { useNavigation } from '@react-navigation/native'
+import { useNavigation, useRoute } from '@react-navigation/native'
 import { width, height, SmallTextWidth, bigTextWidth } from '../global/Dimensions'
 import ProfileButtons from '../components/ProfileButtons'
+import firestore from '@react-native-firebase/firestore';
+
 
 const ViewProfile = () => {
     const navigation = useNavigation();
 
-  return (
-    <ScrollView contentContainerStyle = {styles.scrollStyles}>
-        <StatusBar hidden = {false}/>
-        <View style = {styles.backBtnView}>
-            <BackButton onPress = {() => navigation.navigate('Profile')} />
-        </View>
-        <View style = {styles.imageView}>
-        <Image
-            source={require('../../assets/Images/user-default.jpg')}
-            style = {styles.imageStyles}
-        />
-        </View>
-        <View style = {styles.infoView}>
-            <View style = {styles.headerView}>
-                <Text style = {styles.headerStyles}>Personal Information</Text>
-            </View>
-            <View style = {styles.dataView}>
-                <Text style = {styles.dataHead}>Username</Text>
-                <Text style = {styles.data}>Kasun Sandaruwan</Text>
-                <Text style = {styles.dataHead}>Email Address</Text>
-                <Text style = {styles.data}>kasun@gmail.com</Text>
-                <Text style = {styles.dataHead}>Mobile Number</Text>
-                <Text style = {styles.data}>079 - 856951121</Text>
-                <Text style = {styles.dataHead}>Address</Text>
-                <Text style = {styles.data}>659/B, Koswatte Road, Medagama</Text>
-                <Text style = {styles.dataHead}>District, Province</Text>
-                <Text style = {styles.data}>Gampaha District, Western Province</Text>
-            </View>
-            <View style = {styles.buttonView}>
-                <ProfileButtons height = {45} width = "90%" onPress = {() => navigation.navigate('EditProfile')} btnText = 'Edit Profile' bgColor = "rgba(255,163,75,0.7)" boColor = "#345C8C"/>
-            </View>
-        </View>
-    </ScrollView>
-  )
+    const route = useRoute();
+    const { email } = route.params;
+
+    const [user, setUser] = useState(null);
+
+
+    navigation.addListener('focus', () => {
+        getUserData();
+    });
+
+
+
+        const getUserData = async () => {
+            try {
+            const userSnapshot = await firestore()
+                .collection('users')
+                .where('email', '==', email)
+                .get();
+                
+            if (userSnapshot.docs.length > 0) {
+                const userData = userSnapshot.docs[0].data();
+                setUser(userData);
+            } else {
+                console.log('No user found with the provided email');
+            }
+            } catch (error) {
+            console.error('Error fetching user data:', error);
+            }
+        }
+    
+        useEffect(() => {
+            getUserData();
+        },[])
+
+    return (
+
+    user && (
+        <>
+                <ScrollView contentContainerStyle = {styles.scrollStyles}>
+                <StatusBar hidden = {false}/>
+                <View style = {styles.backBtnView}>
+                    <BackButton onPress = {() => navigation.navigate('Profile')} />
+                </View>
+                <View style = {styles.imageView}>
+                <Image
+                    source={{ uri: `https://firebasestorage.googleapis.com/v0/b/purfectpal-b93c7.appspot.com/o/users%2F${user.profilePic}?alt=media&token=d33b3e86-8008-49dd-9734-36f5405d44b9` }}
+                    style = {styles.imageStyles}
+                />
+                </View>
+                <View style = {styles.infoView}>
+                    <View style = {styles.headerView}>
+                        <Text style = {styles.headerStyles}>Personal Information</Text>
+                    </View>
+                    <View style = {styles.dataView}>
+                        <Text style = {styles.dataHead}>Username</Text>
+                        <Text style = {styles.data}>{user.name}</Text>
+                        <Text style = {styles.dataHead}>Email Address</Text>
+                        <Text style = {styles.data}>{user.email}</Text>
+                        <Text style = {styles.dataHead}>Mobile Number</Text>
+                        <Text style = {styles.data}>{user.mobileNumber === 0 ? 'not set' : user.mobileNumber }</Text>
+                        <Text style = {styles.dataHead}>Address</Text>
+                        <Text style = {styles.data}>{user.address}</Text>
+                        <Text style = {styles.dataHead}>Location</Text>
+                        <Text style = {styles.data}>{user.district == '' || user.province == '' ? 'not set' : `${user.district} District, ${user.province} Province` }</Text>
+                    </View>
+                    <View style = {styles.buttonView}>
+                        <ProfileButtons height = {45} width = "90%" onPress = {() => navigation.navigate('EditProfile',{email: email})} btnText = 'Edit Profile' bgColor = "rgba(255,163,75,0.7)" boColor = "#345C8C"/>
+                    </View>
+                </View>
+            </ScrollView>
+        </>
+    )
+    
+    )
 }
 
 export default ViewProfile

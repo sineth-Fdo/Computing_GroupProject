@@ -8,6 +8,10 @@ const SplashScreen = () => {
 
 
     useEffect(() => {
+
+        navigation.addListener('focus', () => {
+            getData();
+        });
         const timeout = setTimeout(() => {
             getData();
         }, 3000); 
