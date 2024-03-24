@@ -15,6 +15,7 @@ import ViewProfile from './src/screens/ViewProfile';
 import AboutUs from './src/screens/AboutUs';
 import EditProfile from './src/screens/EditProfile';
 import ResultsPage from './src/screens/ResultsPage';
+import AdvertisementView from './src/screens/AdvertisementView';
 
 const Stack = createNativeStackNavigator();
 
@@ -22,6 +23,7 @@ const App = () => {
   return (
     <NavigationContainer>
       <Stack.Navigator>
+  
   
         <Stack.Screen
           name="Splash"
@@ -87,6 +89,11 @@ const App = () => {
         <Stack.Screen
           name="EditProfile"
           component={EditProfile}
+          options={{headerShown: false}}
+        />
+          <Stack.Screen
+          name="AdvertisementView"
+          component={AdvertisementView}
           options={{headerShown: false}}
         />
       </Stack.Navigator>
