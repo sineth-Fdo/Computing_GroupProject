@@ -2,7 +2,7 @@ import { ScrollView, StyleSheet, Text, View, TextInput, FlatList } from 'react-n
 import React, { useState } from 'react'
 import SearchBox from '../components/SearchBox'
 import CategoryBtn from '../components/CategoryBtn'
-import { useNavigation } from '@react-navigation/native'
+import { useNavigation, useRoute } from '@react-navigation/native'
 import { firebase } from '@react-native-firebase/firestore';
 import { SmallTextWidth, height, width } from '../global/Dimensions';
 import ResultsCard from '../components/ResultsCard'
@@ -11,6 +11,8 @@ import ResultsCard from '../components/ResultsCard'
 
 const Categories = () => {
   const navigation = useNavigation();
+  const route = useRoute();
+  const { cateName } = route.params;
 
   const [searchTerm, setSearchTerm] = useState('');
   const [advertisements, setAdvertisements]  = useState([]);
@@ -18,6 +20,9 @@ const Categories = () => {
 
 
   const handleSelectCategory = (category) => {
+
+    
+
     setCategory(category);
     setSearchTerm(category);
   

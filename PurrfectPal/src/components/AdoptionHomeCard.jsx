@@ -17,24 +17,31 @@ const AdoptionHomeCard = (props) => {
 
 
     // get all advertisements
-const getAdvertisements = async () => {
-    try {
-        const adSnapshot = await firebase.firestore()
-            .collection('advertisements')
-            .where('purpose', '==', purpose)
-            .limit(5)
-            .get();
-            
-        if (adSnapshot.docs.length > 0) {
-            const adData = adSnapshot.docs.map(doc => doc.data());
-            setAdvertisements(adData);
-        } else {
-            console.log('No advertisements found');
+    const getAdvertisements = async () => {
+        try {
+            const adSnapshot = await firebase.firestore()
+                .collection('advertisements')
+                .where('purpose', '==', purpose)
+                .limit(5)
+                .get();
+                
+            if (!adSnapshot.empty) {
+                const adData = adSnapshot.docs.map(doc => ({
+                    id: doc.id,
+                    ...doc.data()
+                }));
+                setAdvertisements(adData);
+                adData.forEach(ad => {
+                    console.log(ad.id);
+                });
+            } else {
+                console.log('No advertisements found');
+            }
+        } catch (error) {
+            console.error('Error fetching advertisements:', error);
         }
-    } catch (error) {
-        console.error('Error fetching advertisements:', error);
     }
-    }
+    
 
     useEffect(() => {
         getAdvertisements();    
@@ -64,7 +71,17 @@ const getAdvertisements = async () => {
                         {
                             advertisements && advertisements.map((ad, index) => {
                                 return (
-                                    <AdoptionCard BigTitle = {BigTitle} title = {ad.title} ageYear = {ad.ageYear} ageMonth = {ad.ageMonth} image = {ad.mainImage} purpose = {ad.purpose}/>
+                                    <AdoptionCard
+                                        BigTitle={BigTitle}
+                                        title={ad.title}
+                                        ageYear={ad.ageYear}
+                                        ageMonth={ad.ageMonth}
+                                        image={ad.mainImage}
+                                        purpose={ad.purpose}
+                                        adId={ad.id}
+                                        onPress={() =>navigation.navigate('AdvertisementView', {adId : ad.id,email : email})}
+/>
+
                                 )
                             })
                         }

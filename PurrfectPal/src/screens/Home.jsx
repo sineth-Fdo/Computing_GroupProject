@@ -68,16 +68,6 @@ const Home = (props) => {
     );
   }
 
-  // return (
-  //   <View style={styles.container}>
-  //     <Text>{user.name}</Text>
-  //     <Text>{user.userName}</Text>
-  //     <Text>{user.email}</Text>
-  //     {user.profilePic ?
-  //       <Image source={{ uri: `https://firebasestorage.googleapis.com/v0/b/purfectpal-b93c7.appspot.com/o/users%2F${user.profilePic}?alt=media&token=d33b3e86-8008-49dd-9734-36f5405d44b9` }} style={styles.profileImage} /> :
-  //       <Image source={require('../../assets/Images/user-default.jpg')} style={styles.profileImage} />}
-  //   </View>
-  // )
 
 
   return (
@@ -97,7 +87,7 @@ const Home = (props) => {
           </View>
 
             <View style = {{flexDirection : 'row',flexWrap : 'wrap',justifyContent : 'center',}}>
-                <CategoryBtn icon= {require('../../assets/Images/petIcons/dog.png')} cateName= 'Dogs' />
+                <CategoryBtn icon= {require('../../assets/Images/petIcons/dog.png')} cateName= 'Dogs' onPress = {() => {navigation.navigate('Categories',{cateName : 'Dog'})}}/>
                 <CategoryBtn icon= {require('../../assets/Images/petIcons/cat.png')} cateName= 'Cats' />
                 <CategoryBtn icon= {require('../../assets/Images/petIcons/hamster.png')} cateName= 'Hamsters' fsize = {12}/>
                 <CategoryBtn icon= {require('../../assets/Images/petIcons/rabbit.png')} cateName= 'Rabbits' />
