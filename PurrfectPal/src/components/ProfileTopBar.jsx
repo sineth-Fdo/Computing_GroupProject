@@ -9,7 +9,7 @@ import { useNavigation } from '@react-navigation/native';
 
 const ProfileTopBar = (props) => {
 
-    const { uName, uPic } = props;
+    const { uName, uPic ,district,province} = props;
     const navigation = useNavigation();
 
     return (
@@ -29,7 +29,7 @@ const ProfileTopBar = (props) => {
 
                 <View style ={{flexDirection : 'row',}}>
                     <Ionicons name="location-outline" size={16} color="#000" solid />
-                    <Text style = {{color : '#000'}}>Gampaha ,Western Province </Text> 
+                    <Text style = {{color : '#000'}}>{province}Province, {district} </Text> 
                 </View>
             </View>
             </View>

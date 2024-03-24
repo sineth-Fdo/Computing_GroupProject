@@ -1,7 +1,7 @@
 import { firebase } from '@react-native-firebase/firestore';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import React, { useEffect, useState } from 'react';
-import { Image, Modal, SafeAreaView, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { Image, Modal, SafeAreaView, ScrollView, StyleSheet, Text, TouchableOpacity, View, Linking } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import LoginSubmitBtn from '../components/LoginSubmitBtn';
 import { SmallTextWidth, height, width } from '../global/Dimensions';
@@ -12,6 +12,10 @@ const AdvertisementView = () => {
     const route = useRoute();
     const { adId, email } = route.params;
     const navigation = useNavigation();
+
+    const openUrl = async(url) => {
+        await Linking.openURL(url);
+    };
 
 
 
@@ -220,9 +224,11 @@ const getUserData = async () => {
                                         <View style = {{width : '27%',height : '100%',justifyContent : 'center',alignItems : 'center'}}>
                                                 
                                             
-                                            <View style = {{width : 60,height : '100%',justifyContent : 'center',alignItems : 'center',borderRadius : 100, backgroundColor : '#D0DEEE'}}>
+                                            <TouchableOpacity
+                                                onPress = {() => {openUrl(`tel:${user.phone}`)}}
+                                                style = {{width : 60,height : '100%',justifyContent : 'center',alignItems : 'center',borderRadius : 100, backgroundColor : '#D0DEEE'}}>
                                                 <Ionicons name="call" size={26} color="#345C8C" solid style = {{}} />
-                                            </View>
+                                            </TouchableOpacity>
                                             
                                                 
                                                 
@@ -230,9 +236,11 @@ const getUserData = async () => {
                                         <View style = {{width : '27%',height : '100%',justifyContent : 'center',alignItems : 'center'}}>
                                                 
                                             
-                                            <View style = {{width : 60,height : '100%',justifyContent : 'center',alignItems : 'center',borderRadius : 100, backgroundColor : '#D0DEEE'}}>
+                                            <TouchableOpacity 
+                                                onPress = {() => {openUrl(`mailto:${user.email}`)}}
+                                                style = {{width : 60,height : '100%',justifyContent : 'center',alignItems : 'center',borderRadius : 100, backgroundColor : '#D0DEEE'}}>
                                                 <Ionicons name="mail" size={26} color="#345C8C" solid style = {{}} />
-                                            </View>
+                                            </TouchableOpacity>
                                             
                                                 
                                                 

@@ -76,6 +76,8 @@ const Home = (props) => {
         <ProfileTopBar 
             uName = {user.name}
             uPic = {user.profilePic}
+            district = {user.district}
+            province = {user.province}
         />
 
         <ScrollView>
