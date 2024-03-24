@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View,ScrollView, FlatList, StatusBar, TouchableOpacity, ActivityIndicator } from 'react-native'
+import { StyleSheet, Text, View,ScrollView, FlatList, StatusBar, TouchableOpacity, ActivityIndicator, } from 'react-native'
 import {useEffect, useState} from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import SelectDropdown from 'react-native-select-dropdown'
@@ -35,6 +35,7 @@ const ResultsPage = () => {
         getAdvertisements("purpose");
         
     });
+
 
 
 
@@ -187,6 +188,8 @@ const filteredAdvertisements = advertisements ? advertisements.filter(ad => ad.t
                         date = {item.Date}
                         image = {item.mainImage}
                         price = {item.price}
+                        onPress = {() => {navigation.navigate('AdvertisementView', {adId: item.id})}}
+
                     />
                     )}
                     keyExtractor = {item => item.id}
