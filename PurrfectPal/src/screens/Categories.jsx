@@ -37,11 +37,17 @@ const Categories = () => {
           .collection('advertisements')
           .get();
           
-        if (adSnapshot.docs.length > 0) {
-          const adData = adSnapshot.docs.map(doc => doc.data());
-          setAdvertisements(adData);
+          if (!adSnapshot.empty) {
+            const adData = adSnapshot.docs.map(doc => ({
+                id: doc.id,
+                ...doc.data()
+            }));
+            setAdvertisements(adData);
+            adData.forEach(ad => {
+                console.log(ad.id);
+            });
         } else {
-          console.log('No advertisements found');
+            console.log('No advertisements found');
         }
       } catch (error) {
         console.error('Error fetching advertisements:', error);
@@ -61,7 +67,7 @@ const Categories = () => {
         <ScrollView contentContainerStyle={styles.scrollViewContent}>
       <View style = {styles.searchView}>
         <Text style= {styles.ViewHeaders}>Search</Text>
-        <SearchBox placeholder = 'Search Category ...' width= "100%" bgColor = "#D0DEEE" value = {searchTerm} onChangeText = {(text) => setSearchTerm(text)}/>
+        <SearchBox placeholder = 'Search advertisements ...' width= "100%" bgColor = "#D0DEEE" value = {searchTerm} onChangeText = {(text) => setSearchTerm(text)}/>
       </View>
       <View style = {styles.CategoriesView}>
         <Text style= {styles.ViewHeaders}>Pet Categories</Text>
@@ -83,6 +89,7 @@ const Categories = () => {
                   date={item.Date}
                   image={item.mainImage}
                   price={item.price}
+                  onPress= {() => {navigation.navigate('AdvertisementView', {adId : item.id})}}
                 />
               ))}
             </View>

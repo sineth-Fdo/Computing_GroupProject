@@ -19,6 +19,7 @@ const AdvertisementView = () => {
     const [advertisement, setAdvertisement] = useState([]);
     const [user, setUser] = useState([]);
     const [mainImage, setMainImage] = useState('');
+    const [ownerEmail,setOwnerEmail] = useState('');
     
 
     // get one advertisement
@@ -33,6 +34,8 @@ const AdvertisementView = () => {
                 const adData = adSnapshot.data();
                 setAdvertisement(adData);
                 setMainImage(adData.mainImage);
+                console.log(adData.ownerEmail)
+                setOwnerEmail(adData.ownerEmail);
             } else {
                 console.log('No advertisement found');
             }
@@ -42,24 +45,31 @@ const AdvertisementView = () => {
     };
 
     // user data fetch
-    const getUserData = async () => {
-        try {
+// user data fetch
+const getUserData = async () => {
+    try {
+        console.log("Owner Email:", ownerEmail); // Log ownerEmail to check its value
+        if (ownerEmail) {
             const userSnapshot = await firebase.firestore()
                 .collection('users')
-                .where('email', '==', advertisement.ownerEmail) // This line seems to be causing the error
+                .where('email', '==', ownerEmail) 
                 .get();
                 
             if (userSnapshot.docs.length > 0) {
                 const userData = userSnapshot.docs[0].data();
                 setUser(userData);
-                console.log(userData);
+                console.log("User Data:", userData); // Log userData to check the fetched user data
             } else {
                 console.log('No user found with the provided email');
             }
-        } catch (error) {
-            console.error('Error fetching user data:', error);
+        } else {
+            console.log('Owner email is not set');
         }
+    } catch (error) {
+        console.error('Error fetching user data:', error);
     }
+}
+
     
     useEffect(() => {
         setModal(true);
@@ -70,7 +80,7 @@ const AdvertisementView = () => {
 
     useEffect(() => {
         getUserData();
-    },[advertisement]);
+    },[ownerEmail]);
 
     const handleImagePress = (image) => {
         setMainImage(image);
@@ -95,7 +105,7 @@ const AdvertisementView = () => {
             >
                     <TouchableOpacity 
                         style = {{position : 'absolute',top : 30,left : 20, zIndex : 1000}}
-                        onPress={() => {navigation.navigate('Home', {email : email})}}
+                        onPress={() => {navigation.navigate('Home')}}
                         >
                         <Ionicons name="chevron-back" size={28} color="#fff"  solid style = {{marginBottom : 5}} />
 
@@ -152,6 +162,7 @@ const AdvertisementView = () => {
                                         <View style = {{width : '30%',height : '100%',justifyContent : 'center',alignItems : 'center'}}>
 
                                                 {
+                                                    
                                                     user.profilePic ? (
                                                         <>
                                                             <Image 
@@ -164,8 +175,9 @@ const AdvertisementView = () => {
                                                             <Image source={require('../../assets/Images/user-default.jpg')} style = {{width : 50, height : 50,borderWidth : 1,borderColor : '#000',borderRadius : 100}} />
                                                         </>
                                                     )
+                                                    
                                                 }
-
+                                                
                                                 
                                         </View>
                                         <View style = {{width : '70%',height : '100%',alignItems : 'start',justifyContent : 'center'}}>
@@ -204,9 +216,33 @@ const AdvertisementView = () => {
                                     
 
                             </View>
+                            <View style = {{height : 60, flexDirection : 'row',justifyContent : 'center' }}>
+                                        <View style = {{width : '27%',height : '100%',justifyContent : 'center',alignItems : 'center'}}>
+                                                
+                                            
+                                            <View style = {{width : 60,height : '100%',justifyContent : 'center',alignItems : 'center',borderRadius : 100, backgroundColor : '#D0DEEE'}}>
+                                                <Ionicons name="call" size={26} color="#345C8C" solid style = {{}} />
+                                            </View>
+                                            
+                                                
+                                                
+                                        </View>
+                                        <View style = {{width : '27%',height : '100%',justifyContent : 'center',alignItems : 'center'}}>
+                                                
+                                            
+                                            <View style = {{width : 60,height : '100%',justifyContent : 'center',alignItems : 'center',borderRadius : 100, backgroundColor : '#D0DEEE'}}>
+                                                <Ionicons name="mail" size={26} color="#345C8C" solid style = {{}} />
+                                            </View>
+                                            
+                                                
+                                                
+                                        </View>
+                                
+                                    
+                            </View>
 
-                                <LoginSubmitBtn TextName = 'Buy Me ' onPress = {() => {console.log('Contact Seller')}}/>
-
+                                <LoginSubmitBtn TextName = 'Chat' onPress = {() => {console.log('Contact Seller')}}/>
+                                    
                         </ScrollView>
                     </View>
                 </View>

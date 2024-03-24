@@ -79,6 +79,29 @@ const Home = (props) => {
         />
 
         <ScrollView>
+
+      <View style = {{width : width , height : width /2,justifyContent : 'center',alignItems : 'center'  }}>
+          <View style = {{backgroundColor: '#D0DEEE', width : '95%', height : '90%',borderRadius : 10,flexDirection : 'row'}}>
+              <View style = {{ width : '50%',justifyContent : 'center',alignItems : 'center'}}>
+                      <Image 
+                        source={require('../../assets/Images/tips-logo.png')}
+                        style={{ width: '80%', height: '80%', }}
+                      />
+              </View>
+              <View style = {{ width : '50%'}}>
+                    <View style = {{width : '100%',height : '50%',paddingHorizontal : 10}}>
+                          <Text style = {{fontSize : 25,paddingVertical : 10,color : '#000',fontFamily : 'Poppins-SemiBold'}}>Tips For Your Pet</Text>
+                    </View>
+                    <View style = {{width : '100%',height : '50%'}}>
+                          <TouchableOpacity style = {{backgroundColor: '#345C8C', width : '50%', height : '40%',justifyContent :'center',alignItems : 'center',borderRadius : 20,position : 'absolute',right : 20,bottom : 20,}}>
+                              <Text style = {{color : '#fff',fontFamily : 'Poppins-SemiBold'}}>Tips</Text>
+                          </TouchableOpacity>
+                    </View>
+              </View>
+          </View>
+
+      </View>
+
         {/* categories View */}
         <View style = {{width : '100%' ,height : 'auto',justifyContent : 'center',alignItems : 'center',}}>
         <View style = {{width : '93%' ,height : 'auto',borderWidth : 4,borderColor : '#D0DEEE',borderRadius : 20,paddingVertical : 10,paddingHorizontal : 5}}>
@@ -88,11 +111,11 @@ const Home = (props) => {
 
             <View style = {{flexDirection : 'row',flexWrap : 'wrap',justifyContent : 'center',}}>
                 <CategoryBtn icon= {require('../../assets/Images/petIcons/dog.png')} cateName= 'Dogs' onPress = {() => {navigation.navigate('Categories',{cateName : 'Dog'})}}/>
-                <CategoryBtn icon= {require('../../assets/Images/petIcons/cat.png')} cateName= 'Cats' />
-                <CategoryBtn icon= {require('../../assets/Images/petIcons/hamster.png')} cateName= 'Hamsters' fsize = {12}/>
-                <CategoryBtn icon= {require('../../assets/Images/petIcons/rabbit.png')} cateName= 'Rabbits' />
-                <CategoryBtn icon= {require('../../assets/Images/petIcons/bird.png')} cateName= 'Birds' />
-                <CategoryBtn icon= {require('../../assets/Images/petIcons/turtle.png')} cateName= 'Turtles' />
+                <CategoryBtn icon= {require('../../assets/Images/petIcons/cat.png')} cateName= 'Cats' onPress = {() => {navigation.navigate('Categories',{cateName : 'Dog'})}}/>
+                <CategoryBtn icon= {require('../../assets/Images/petIcons/hamster.png')} cateName= 'Hamsters' fsize = {12} onPress = {() => {navigation.navigate('Categories',{cateName : 'Dog'})}}/>
+                <CategoryBtn icon= {require('../../assets/Images/petIcons/rabbit.png')} cateName= 'Rabbits' onPress = {() => {navigation.navigate('Categories',{cateName : 'Dog'})}}/>
+                <CategoryBtn icon= {require('../../assets/Images/petIcons/bird.png')} cateName= 'Birds' onPress = {() => {navigation.navigate('Categories',{cateName : 'Dog'})}}/>
+                <CategoryBtn icon= {require('../../assets/Images/petIcons/turtle.png')} cateName= 'Turtles' onPress = {() => {navigation.navigate('Categories',{cateName : 'Dog'})}}/>
             </View>
         </View> 
         </View> 

@@ -59,9 +59,15 @@ const getAdvertisements = async (isAll) => {
         
         const adSnapshot = await adQuery.get();
 
-        if (adSnapshot.docs.length > 0) {
-            const adData = adSnapshot.docs.map(doc => doc.data());
+        if (!adSnapshot.empty) {
+            const adData = adSnapshot.docs.map(doc => ({
+                id: doc.id,
+                ...doc.data()
+            }));
             setAdvertisements(adData);
+            adData.forEach(ad => {
+                console.log(ad.id);
+            });
         } else {
             console.log('No advertisements found');
         }
