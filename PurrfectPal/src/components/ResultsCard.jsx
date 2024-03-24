@@ -4,10 +4,13 @@ import { bigTextWidth, SmallTextWidth, height, width } from '../global/Dimension
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
 const ResultsCard = (props) => {
-    const {image, title, district, purpose, date, price} = props;
+    const {image, title, district, purpose, date, price, onPress} = props;
 
   return (
-    <TouchableOpacity style = {styles.card}>
+    <TouchableOpacity 
+        onPress={onPress}
+        style = {styles.card}>
+        
         <View style = {styles.imageContainer}>
             <Image
                 source = {{ uri: `https://firebasestorage.googleapis.com/v0/b/purfectpal-b93c7.appspot.com/o/adAdvertisements%2F${image}?alt=media&token=d7eb0a17-345b-4ea5-9e5e-4087e21feb3e` }}
