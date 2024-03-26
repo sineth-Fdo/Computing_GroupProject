@@ -15,6 +15,10 @@ const Profile = (props) => {
   const [user, setUser] = useState(null);
 
 
+    navigation.addListener('focus', () => {
+      getUserData();
+    });
+
     const LogoutStorage = async () => {
       try {
         await AsyncStorage.removeItem('email')

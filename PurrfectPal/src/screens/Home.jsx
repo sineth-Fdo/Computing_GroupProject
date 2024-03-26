@@ -1,4 +1,4 @@
-import { Image, StyleSheet, Text, View, SafeAreaView,ScrollView, TouchableOpacity } from 'react-native'
+import { Image, StyleSheet, Text, View, SafeAreaView,ScrollView, TouchableOpacity, RefreshControl } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import { firebase } from '@react-native-firebase/firestore';
 import { NavigationContainer, useNavigation, useRoute } from '@react-navigation/native';
@@ -17,11 +17,12 @@ const Home = (props) => {
   
 
   const [user, setUser] = useState(null);
+  const [refreshing, setRefreshing] = useState(false);
 
 
   navigation.addListener('focus', () => {
     getUserData();
-  
+    
   });
   
 
@@ -50,8 +51,13 @@ const Home = (props) => {
 
 
   useEffect(() => {
-    getUserData();
-  
+    if (refreshing == true) {
+
+      getUserData();
+    }else {
+      getUserData();
+    }
+
   },[])
 
   if (!user) {
@@ -80,7 +86,21 @@ const Home = (props) => {
             province = {user.province}
         />
 
-        <ScrollView>
+        <ScrollView 
+          refreshControl={
+          <RefreshControl
+            refreshing={refreshing}
+            onRefresh={() => {
+              setRefreshing(true);
+              setTimeout(() => {
+               setRefreshing(false);
+
+             }, 2000);
+              
+            }}
+            />
+          }
+        >
 
       <View style = {{width : width , height : width /2,justifyContent : 'center',alignItems : 'center'  }}>
           <View style = {{backgroundColor: '#D0DEEE', width : '95%', height : '90%',borderRadius : 10,flexDirection : 'row'}}>
@@ -128,8 +148,8 @@ const Home = (props) => {
         {/* Cards View */}
           
         
-            <AdoptionHomeCard BigTitle = "For Adoption" email = {email} purpose = "adopt"  />
-            <AdoptionHomeCard  BigTitle = "For Sale" email = {email} purpose = "sale" />
+            <AdoptionHomeCard BigTitle = "For Adoption" email = {email} purpose = "adopt" refreshing = {refreshing}  />
+            <AdoptionHomeCard  BigTitle = "For Sale" email = {email} purpose = "sale" refreshing = {refreshing} />
       
         
         {/* Cards View End */}
