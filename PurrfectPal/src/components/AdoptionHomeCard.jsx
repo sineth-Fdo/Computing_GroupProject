@@ -10,7 +10,7 @@ const AdoptionHomeCard = (props) => {
 
     const navigation = useNavigation();
 
-    const { BigTitle, email, purpose  } = props;
+    const { BigTitle, email, purpose , refreshing } = props;
 
 
     const [advertisements, setAdvertisements]  = useState();
@@ -44,8 +44,11 @@ const AdoptionHomeCard = (props) => {
     
 
     useEffect(() => {
-        getAdvertisements();    
-    },[]);
+
+            getAdvertisements();    
+            console.log('refreshing - ' + refreshing);
+        
+    },[refreshing]);
 
     
 
@@ -54,13 +57,14 @@ const AdoptionHomeCard = (props) => {
             <View style = {{ width : '100%' ,height : 'auto',borderColor : '#000',borderRadius : 20, paddingVertical : 10, }}>
 
                 
-
+                    
                 <View style = {{ flexDirection : 'row', alignItems : 'center', justifyContent : 'space-between',paddingHorizontal : SmallTextWidth * 2, marginVertical : SmallTextWidth * 1 }}>
                     <Text style = {{color : '#000',fontSize : 25, fontFamily : 'Poppins-Bold',}}>{BigTitle}</Text>
                     <TouchableOpacity>
                         <Text 
                         onPress={() => {navigation.navigate('ResultsPage', {email : email, title : BigTitle, purposeParam : purpose})}}
                         style = {{color : '#000',fontSize : 13, fontFamily : 'Poppins-Medium' }}>See all</Text>
+                        <Text>{refreshing}</Text>
                     </TouchableOpacity>
                 </View>
                 <View style = {{justifyContent : 'center',}}>

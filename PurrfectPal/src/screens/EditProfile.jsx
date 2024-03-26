@@ -103,10 +103,19 @@ const EditProfile = () => {
         </View>
         <Text style = {styles.heading}>Edit Profile</Text>
         <View style = {styles.imageView}>
-          <Image
-              source={{ uri: `https://firebasestorage.googleapis.com/v0/b/purfectpal-b93c7.appspot.com/o/users%2F${profilePic}?alt=media&token=d33b3e86-8008-49dd-9734-36f5405d44b9` }}
-              style = {styles.imageStyles}
-          />
+        {
+                        user.profilePic ? (
+                            <Image
+                                source={{ uri: `https://firebasestorage.googleapis.com/v0/b/purfectpal-b93c7.appspot.com/o/users%2F${user.profilePic}?alt=media&token=d33b3e86-8008-49dd-9734-36f5405d44b9` }}
+                                style = {styles.imageStyles}
+                            />
+                        ) : (
+                            <Image
+                            source={require('../../assets/Images/user-default.jpg')}
+                                style = {styles.imageStyles}
+                            />
+                        )
+        }
           <TouchableOpacity style = {styles.EditPencilView}>
             <Image
               source={require('../../assets/Images/editPencil.png')}

@@ -220,7 +220,7 @@ const addAdvertisement = async () => {
           mainImage: names[selectedImageIndex],
           Date: new Date().toLocaleString()
 
-
+      
       }).then(() => {
           console.log('Document successfully written!');
           setModalVisible(false);

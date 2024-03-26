@@ -1,10 +1,11 @@
-import { StyleSheet, Text, View, SafeAreaView,Image, ScrollView, StatusBar} from 'react-native'
+import { StyleSheet, Text, View, SafeAreaView,Image, ScrollView, StatusBar, TouchableOpacity} from 'react-native'
 import React, { useEffect, useState } from 'react'
 import BackButton from '../components/BackButton'
 import { useNavigation, useRoute } from '@react-navigation/native'
 import { width, height, SmallTextWidth, bigTextWidth } from '../global/Dimensions'
 import ProfileButtons from '../components/ProfileButtons'
 import firestore from '@react-native-firebase/firestore';
+import LottieView from "lottie-react-native";
 
 
 const ViewProfile = () => {
@@ -18,6 +19,7 @@ const ViewProfile = () => {
 
     navigation.addListener('focus', () => {
         getUserData();
+        console.log('refreshing navigation - ');
     });
 
 
@@ -42,11 +44,28 @@ const ViewProfile = () => {
     
         useEffect(() => {
             getUserData();
+            console.log('refreshing - useEffect');
         },[])
 
     return (
 
-    user && (
+    !user ? (
+        <>
+            <View style={{flex : 1,justifyContent : 'center',alignItems : 'center'}}>
+                <LottieView
+                    source={require("../../assets/Images/Animated/catLoading.json")}
+                    style={{ width: 80, height: 80, }}
+                    autoPlay
+                    loop
+                />
+                <ProfileButtons height = {35} width = "30%" onPress = {
+                    () => {
+                        navigation.goBack();
+                    }
+                    } btnText = 'Go Back' bgColor = "rgba(255,163,75,0.7)" boColor = "#345C8C"/>
+            </View>
+        </>
+    ): (
         <>
                 <ScrollView contentContainerStyle = {styles.scrollStyles}>
                 <StatusBar hidden = {false}/>
@@ -54,6 +73,19 @@ const ViewProfile = () => {
                     <BackButton onPress = {() => navigation.navigate('Profile')} />
                 </View>
                 <View style = {styles.imageView}>
+                    {
+                        user.profilePic ? (
+                            <Image
+                                source={{ uri: `https://firebasestorage.googleapis.com/v0/b/purfectpal-b93c7.appspot.com/o/users%2F${user.profilePic}?alt=media&token=d33b3e86-8008-49dd-9734-36f5405d44b9` }}
+                                style = {styles.imageStyles}
+                            />
+                        ) : (
+                            <Image
+                            source={require('../../assets/Images/user-default.jpg')}
+                                style = {styles.imageStyles}
+                            />
+                        )
+                    }
                 <Image
                     source={{ uri: `https://firebasestorage.googleapis.com/v0/b/purfectpal-b93c7.appspot.com/o/users%2F${user.profilePic}?alt=media&token=d33b3e86-8008-49dd-9734-36f5405d44b9` }}
                     style = {styles.imageStyles}
