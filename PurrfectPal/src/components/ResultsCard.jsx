@@ -89,6 +89,7 @@ const styles = StyleSheet.create({
     },
     dateStyles: {
         fontFamily: 'Poppins-Light',
+        color : '#111F2F',
         
     }
 })
